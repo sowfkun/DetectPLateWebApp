@@ -1,0 +1,120 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: 'main_font';
+    src: url('../../Resources/font/Yanone/Yanone-Regular.eot?#iefix') format('embedded-opentype'),  
+        url('../../Resources/font/Yanone/Yanone-Regular.woff') format('woff'), 
+        url('../../Resources/font/Yanone/Yanone-Regular.ttf')  format('truetype'), 
+        url('../../Resources/font/Yanone/Yanone-Regular.svg#Yanone/Yanone-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+html, body{
+    height: 100%;
+}
+
+/*background*/
+#background{
+    background: linear-gradient(-135deg, #d87111, #dfa563);
+    height: 100%;
+}
+/*Vùng hiển thị các thông báo*/
+.alert_box{
+    width: 250px;
+    float: right;
+    height: fit-content;
+    padding: 5px;
+}
+.alert{
+    z-index: 10000;
+    margin-bottom: 10px !important;
+    box-shadow: 0 0 5px cadetblue;
+}
+
+
+#login{
+    height: 100%;
+    padding: 50px 100px;
+}
+#login_layout{
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+#image{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+}
+
+#image{
+    transition: opacity 1s ease;
+}
+
+.login_form{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: main_font;
+
+}
+
+.form_title{
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ee8a3e;
+    text-transform: uppercase;
+}
+
+.input{
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.input i{
+    font-size: 30px;
+    color: #ee8a3e;
+    position: absolute;
+    transition: margin-left 0.5s ease-in;
+}
+.input input{
+    height: 35px;
+    width: 60%;
+    text-indent: 40px;
+    border: none;
+    box-shadow: 0 0 5px #ee8a3e;
+    padding-top: 5px;
+    transition: all 0.5s ease-in;
+    background-color: transparent;
+}
+
+.input :focus{
+    transform: scale(1.1);
+    outline: none;
+    box-shadow: 0 0 10px rgb(100, 171, 238);
+}
+
+.btn{
+    font-size: 20px;
+    background-color: #ee8a3e;
+    color: white;
+    height: 35px;
+    border: none;
+    line-height: 25px;
+}
+
+.switch:hover{
+    cursor: pointer;
+}
+
+.resendOTP:hover{
+    cursor: pointer;
+}

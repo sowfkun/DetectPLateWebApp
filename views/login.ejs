@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a0df4ac8c5.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="CSS/login.css">
+    <title>Happy Cafe</title>
+   
+</head>
+<body onload="loadFunction()">
+    <div id="background" class="container-fluid" >
+
+        <!--hiển thị alert-->
+        <div class="alert_box">
+           
+        </div>
+        <div id="login" class="container">
+            <div id="login_layout" class="row">
+                <div id="image" class="col-lg-6 ">
+                    <a href="/"><img src="Resources/images/logo.png" height="350px" width="auto"></a>
+                </div>
+    
+                <div class="login_form col-lg-6 ">
+                    <!--form đăng nhập-->
+                    <form class="form" id="login_form" style="width: 100%;" >
+                        <span class="form_title w3-animate-left">Đăng nhập</span>
+                        <div class="input w3-animate-right " style="margin-top: 30px">
+                            <i class="fas fa-phone-square" style="margin: 3px 4px; z-index: 1000;"></i>
+                            <input type="text" id="phone" name="phone" placeholder="Số điện thoại">
+                        </div>
+    
+                        <div class="input w3-animate-left" style="margin-bottom: 30px;">
+                            <i class="fas fa-unlock-alt" style="font-size: 26px; margin: 5px 4px;"></i>
+                            <input type="password" id="password" name="pass" placeholder="Password">
+                        </div>
+                        
+                        <div>
+                            <button id="btn_login" type="" class=" btn btn-info w3-animate-right">Đăng nhập</button>
+                        </div>
+                        <div>
+                            <h2 class="switch " id="switch_to_send_sms" style="font-size: 15px; color: #0380a0;">Bạn quên mật khẩu?</h2>
+                        </div>
+                    </form>
+
+                    <!--Form quên mật khẩu-->
+                    <form class="form" id="sendSMS" style="width: 100%; display: none;">
+                        <span class="form_title w3-animate-left">Quên mật khẩu</span>
+                        <div class="input w3-animate-right " style="margin-top: 30px">
+                            <i class="fas fa-phone-square" style="margin: 3px 4px"></i>
+                            <input type="text" name="phone" placeholder="Số điện thoại">
+                        </div>
+                      
+                        <div>
+                            <button id="switch_to_confirm_sms" type="button" class="btn btn-info w3-animate-right">Gửi mã</button>
+                        </div>
+                        <div>
+                            <h2 class="switch switch_to_login" style="font-size: 15px; color: #0380a0;">Đăng nhập?</h2>
+                        </div>
+                    </form>
+
+                     <!--Form xác nhận otp-->
+                     <form class="form" id="otpConfirm" style="width: 100%; display: none ;">
+                        <span class="form_title w3-animate-left" style="font-size: 30px;">Quên mật khẩu</span>
+                        <div class="input w3-animate-left" style="margin-bottom: 30px; margin-top: 30px; display: flex; flex-direction: row; justify-content: center;">
+                            <div style="margin-right: 56px;">
+                                <i id="otp_label" class="fas fa-check-square" style="font-size: 26px; margin: 5px 4px;"></i>
+                                <input type="text" id="otp" name="otp" style="width:100%" placeholder="Nhập mã xác nhận" >
+                            </div>
+                            <h2 class="resendOTP" style="font-size: 15px; color: #0380a0;" >Gửi lại mã</h2>
+                        </div>
+                        
+                        <div class="input w3-animate-left" style="margin-bottom: 30px;">
+                            <i class="fas fa-unlock-alt" style="font-size: 26px; margin: 5px 4px;"></i>
+                            <input type="password" id="newpass" name="newpass" placeholder="Nhập mật khẩu mới">
+                        </div>
+
+                        <div class="input w3-animate-left" style="margin-bottom: 30px;">
+                            <i class="fas fa-unlock-alt" style="font-size: 26px; margin: 5px 4px;"></i>
+                            <input type="password" id="confirm" name="confirm" placeholder="Nhập lại mật khẩu" >
+                        </div>
+                        <div>
+                            <button id="confirm_new_pass" type="" class="btn btn-info w3-animate-right">Xác nhận</button>
+                        </div>
+                        <div>
+                            <h2 class="switch switch_to_login" style="font-size: 15px; color: #0380a0;">Đăng nhập?</h2>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="JS/login.js"></script>
+        
+</body>
+</html>
