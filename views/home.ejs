@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/CSS/home.css">
+  <title>Home</title>
+</head>
+<body>
+  
+<div class="container-fluid pt-5">
+    <div class="row">
+        <!--List license plates-->
+        <div class="col-sm-3" id = "list">
+            <table class="table table-bordered table-list">
+                <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>License Plates</th>
+                      <th>Place</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td  id ="td_time"></td>
+                      <td>Defaultson</td>
+                      <td>def@somemail.com</td>
+                    </tr>      
+                    <tr class="table-danger">
+                      <td>Primary</td>
+                      <td>Joe</td>
+                      <td>joe@example.com</td>
+                    </tr>
+            </table>
+        </div>
+
+        <!--Detail vehicle violate-->
+
+        <div class="col-sm-5" >
+            <!--picture of violated license plate-->
+            <div id ="div-license-plate">
+                <img id="img-license-plate" src="/Resources/images/logo.png" class = "rounded mx-auto d-block img-fluid">
+            </img>
+
+            <div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Biển số xe</td>
+                            <td>50A1 - 55555</td>
+                        </tr>
+                        <tr>
+                            <td>Loại xe</td>
+                            <td>Xe máy</td>
+                        </tr>
+                        <tr>                            
+                            <td>Người sở hữu</td>
+                            <td>Nguyễn Văn A</td>
+                        </tr>
+                        <tr>                            
+                            <td>Nơi đăng ký</td>
+                            <td>TP HCM</td>
+                        </tr>
+                        <tr>                            
+                            <td>Lỗi vi phạm</td>
+                            <td>Xe mất cắp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        
+        <!--look up blurred license plate -->
+
+        <div class="col-sm-4">
+
+        </div>
+
+    </div>
+</div>
+<script src="JS/home.js"></script>
+</body>
+</html>
