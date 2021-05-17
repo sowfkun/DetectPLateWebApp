@@ -14,7 +14,7 @@
 <body>
   
 <div class="container-fluid pt-5">
-    <div class="row">
+    <div class="row border-between">
         <!--List license plates-->
         <div class="col-sm-3" id = "list">
             <table class="table table-bordered table-list">
@@ -45,33 +45,33 @@
             <!--picture of violated license plate-->
             <div id ="div-license-plate">
                 <img id="img-license-plate" src="/Resources/images/logo.png" class = "rounded mx-auto d-block img-fluid">
-            </img>
+                <div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Biển số xe</td>
+                                <td>50A1 - 55555</td>
+                            </tr>
+                            <tr>
+                                <td>Loại xe</td>
+                                <td>Xe máy</td>
+                            </tr>
+                            <tr>                            
+                                <td>Người sở hữu</td>
+                                <td>Nguyễn Văn A</td>
+                            </tr>
+                            <tr>                            
+                                <td>Nơi đăng ký</td>
+                                <td>TP HCM</td>
+                            </tr>
+                            <tr>                            
+                                <td>Lỗi vi phạm</td>
+                                <td>Xe mất cắp</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <div>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>Biển số xe</td>
-                            <td>50A1 - 55555</td>
-                        </tr>
-                        <tr>
-                            <td>Loại xe</td>
-                            <td>Xe máy</td>
-                        </tr>
-                        <tr>                            
-                            <td>Người sở hữu</td>
-                            <td>Nguyễn Văn A</td>
-                        </tr>
-                        <tr>                            
-                            <td>Nơi đăng ký</td>
-                            <td>TP HCM</td>
-                        </tr>
-                        <tr>                            
-                            <td>Lỗi vi phạm</td>
-                            <td>Xe mất cắp</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
 
         </div>
@@ -79,10 +79,45 @@
         <!--look up blurred license plate -->
 
         <div class="col-sm-4">
+            <div class="search_bar">
+                <nav class="navbar navbar-light bg-light">
+                    <form class="form-inline">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                  </nav>
+            </div>
+            <div id ="div-license-plate">
+                <img id="img-license-plate" src="/Resources/images/logo.png" class = "rounded mx-auto d-block img-fluid">
+                <div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Biển số xe</td>
+                                <td>50A1 - 55555</td>
+                            </tr>
+                            <tr>
+                                <td>Loại xe</td>
+                                <td>Xe máy</td>
+                            </tr>
+                            <tr>                            
+                                <td>Người sở hữu</td>
+                                <td>Nguyễn Văn A</td>
+                            </tr>
+                            <tr>                            
+                                <td>Nơi đăng ký</td>
+                                <td>TP HCM</td>
+                            </tr>
+                            <tr>                            
+                                <td>Lỗi vi phạm</td>
+                                <td>Xe mất cắp</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
+            </div>
         </div>
-
-    </div>
 </div>
 <script src="JS/home.js"></script>
 </body>
