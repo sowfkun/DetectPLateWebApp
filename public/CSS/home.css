@@ -1,36 +1,82 @@
-#div-license-plate{
-    width: 440px;
-    height: 248px;
+@charset "utf-8";
+
+html,
+body {
+  height: 100%;
+}
+/*#region Navigation bar */
+
+.bd-navbar {
+  background-color: #563d7c;
+  font-size: 18px;
 }
 
-#img-license-plate{
+.nav-item:hover {
+  cursor: pointer;
+}
+
+/* Search form*/
+#manual-search label {
+  margin-right: 15px;
+  color: antiquewhite;
+}
+
+#manual-search input {
+  width: 250px;
+}
+
+#manual-search button {
+  background-color: white;
+}
+
+#manual-search button:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+/*#endregion */
+
+/*#region main layout*/
+#main-layout {
+  background-color: #e4e4e4;
+}
+
+.group {
+  padding: 10px !important;
+  height: 100%;
+}
+
+.group-layout {
+  height: 100%;
+  background-color: white;
+  border-radius: 5px;
+}
+
+/* layout of column */
+.title {
+  text-align: center;
+  font-size: 23px;
+  color: rgb(173, 11, 87);
+  margin-bottom: 20px;
+}
+
+.list-detected-vehicle {
+    overflow-y: auto;
+
+}
+.list-detected-vehicle table {
     width: 100%;
     height: 100%;
-}
-
-#list{
-    overflow: auto;
-    height: 728px;
-}
-
-.table-list th,td{
-    font-size: 10px;
+    padding: 10px;
     text-align: center;
 }
-.search_bar{
-    margin: 10px;
+
+.list-detected-vehicle table tr{
+    border-bottom: 1px solid #e4e4e4;
 }
 
-.border-between > [class*='col-']:before {
-    background: #e3e3e3;
-    bottom: 0;
-    content: " ";
-    left: 0;
-    position: absolute;
-    width: 1px;
-    top: 0;
- }
- 
- .border-between > [class*='col-']:first-child:before {
-    display: none;
- }
+
+.list-detected-vehicle p {
+    margin: 5px;
+}
+/*#endregion */

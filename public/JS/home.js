@@ -1,10 +1,7 @@
-// get time 
-function myFunction() {
-    var today = new Date();
-    var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = date+' '+time;
+// set height for main layout
+navbarHeight = $(".navbar").height() + 16;
+$("#main-layout").css("height", $("body").height() - navbarHeight + "px");
 
-   document.getElementById("td_time").innerHTML = dateTime;
-  }
-  myFunction()
+// Set height for table of vehicle
+titleHeight  = $(".title").height();
+$(".list-detected-vehicle").css("height", $(".group").height() - titleHeight - 40 + "px");

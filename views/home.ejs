@@ -1,124 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/CSS/home.css">
-  <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/CSS/home.css">
+    <title>Home</title>
 </head>
+
 <body>
-  
-<div class="container-fluid pt-5">
-    <div class="row border-between">
-        <!--List license plates-->
-        <div class="col-sm-3" id = "list">
-            <table class="table table-bordered table-list">
-                <thead>
-                    <tr>
-                      <th>Time</th>
-                      <th>License Plates</th>
-                      <th>Place</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td  id ="td_time"></td>
-                      <td>Defaultson</td>
-                      <td>def@somemail.com</td>
-                    </tr>      
-                    <tr class="table-danger">
-                      <td>Primary</td>
-                      <td>Joe</td>
-                      <td>joe@example.com</td>
-                    </tr>
-            </table>
+
+    <!-- #region header-->
+    <!---->
+    <!---->
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+        <div class="navbar-nav-scroll">
+            <ul class="navbar-nav bd-navbar-nav flex-row">
+                <li class="nav-item">
+                    <a class="nav-link " href="/home">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active">Lịch sử</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link "></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"></a>
+                </li>
+            </ul>
         </div>
+        <!-- manual search -->
+        <div id="manual-search" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            <form class="form-inline">
+                <label for="search-box">Tìm thủ công</label>
+                <input id="search-box" class="form-control mr-sm-2" type="search" placeholder="Nhập số xe">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </header>
+    <!-- #endregion -->
 
-        <!--Detail vehicle violate-->
 
-        <div class="col-sm-5" >
-            <!--picture of violated license plate-->
-            <div id ="div-license-plate">
-                <img id="img-license-plate" src="/Resources/images/logo.png" class = "rounded mx-auto d-block img-fluid">
-                <div>
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>Biển số xe</td>
-                                <td>50A1 - 55555</td>
-                            </tr>
-                            <tr>
-                                <td>Loại xe</td>
-                                <td>Xe máy</td>
-                            </tr>
-                            <tr>                            
-                                <td>Người sở hữu</td>
-                                <td>Nguyễn Văn A</td>
-                            </tr>
-                            <tr>                            
-                                <td>Nơi đăng ký</td>
-                                <td>TP HCM</td>
-                            </tr>
-                            <tr>                            
-                                <td>Lỗi vi phạm</td>
-                                <td>Xe mất cắp</td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <!-- #region main layout-->
+    <!---->
+    <!---->
+    <div id="main-layout" class="container-fluid">
+        <div class="row" style="height: 100%">
+            <!---->
+            <!--Normal detected Vehicle-->
+            <!---->
+            <div id="normal-detected-list" class="group col-xl-4">
+                <div class="group-layout">
+                    <h1 class="title" style="color: green;">Phương tiện bình thường</h1>
+                    
+                    <div class="list-detected-vehicle" id="table-normal">
+                        <table>
+                            <thead>
+                                <tr class="head">
+                                    <th class="col-time" style="width: 30%;">Thời gian</th>
+                                    <th class="col-plate-number" style="width: 30%;">Biển số</th>
+                                    <th class="col">Hình ảnh</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value">62P148495</td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-
             </div>
 
-        </div>
-        
-        <!--look up blurred license plate -->
+            <!---->
+            <!--Vehicle detect error or in stolen list-->
+            <!---->
+            <div id="error-detected-list" class="group col-xl-4">
+                <div class="group-layout">
+                    <h1 class="title">Phương tiện có dấu hiệu nghi vấn</h1>
 
-        <div class="col-sm-4">
-            <div class="search_bar">
-                <nav class="navbar navbar-light bg-light">
-                    <form class="form-inline">
-                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                  </nav>
-            </div>
-            <div id ="div-license-plate">
-                <img id="img-license-plate" src="/Resources/images/logo.png" class = "rounded mx-auto d-block img-fluid">
-                <div>
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>Biển số xe</td>
-                                <td>50A1 - 55555</td>
-                            </tr>
-                            <tr>
-                                <td>Loại xe</td>
-                                <td>Xe máy</td>
-                            </tr>
-                            <tr>                            
-                                <td>Người sở hữu</td>
-                                <td>Nguyễn Văn A</td>
-                            </tr>
-                            <tr>                            
-                                <td>Nơi đăng ký</td>
-                                <td>TP HCM</td>
-                            </tr>
-                            <tr>                            
-                                <td>Lỗi vi phạm</td>
-                                <td>Xe mất cắp</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="list-detected-vehicle" id="table-error">
+                        <table>
+                            <thead>
+                                <tr class="head">
+                                    <th class="col-time" style="width: 30%;">Thời gian</th>
+                                    <th class="col-plate-number" style="width: 30%;">Biển số</th>
+                                    <th class="col">Chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value"></td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value"></td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+
+                                <tr class="table-row">
+                                    <td class="col-time-value">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="col-plateno-value"></td>
+                                    <td class="col-detail">
+                                        <img src="/Resources/images/test.jpg" height="auto" width="90px">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </div>
 
+            <!---->
+            <!--display information of detection-->
+            <!---->
+            <div id="detail-info" class="group col-xl-4">
+                <div class="group-layout">
+                    <h1 class="title">Thông tin chi tiết</h1>
+                </div>
             </div>
         </div>
-</div>
-<script src="JS/home.js"></script>
+
+    </div>
+    <!-- #endregion -->
 </body>
+
 </html>
+
+
+<!-- #region import libs-->
+<!---->
+<!---->
+
+<!--import jquery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- import bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!--jquery confirm-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+<!--import font awesome-->
+<script src="https://kit.fontawesome.com/a0df4ac8c5.js"></script>
+
+<!--custom javascript-->
+<script src="JS/home.js"></script>
+
+<!-- #endregion -->
