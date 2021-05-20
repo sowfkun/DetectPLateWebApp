@@ -52,31 +52,73 @@ body {
   border-radius: 5px;
 }
 
-/* layout of column */
+/* Detect List */
 .title {
   text-align: center;
   font-size: 23px;
   color: rgb(173, 11, 87);
   margin-bottom: 20px;
+  padding-top: 5px;
 }
 
-.list-detected-vehicle {
-    overflow-y: auto;
-
-}
-.list-detected-vehicle table {
+.table-result-area table {
     width: 100%;
-    height: 100%;
     padding: 10px;
     text-align: center;
 }
 
-.list-detected-vehicle table tr{
+.table-body {
+  overflow-y: auto;
+}
+
+.table-result-area table tr{
     border-bottom: 1px solid #e4e4e4;
 }
 
-
-.list-detected-vehicle p {
+.table-result-area p {
     margin: 5px;
+}
+
+.small-image:hover {
+  cursor: pointer;
+}
+
+/* Detail information*/
+#detail-info .group-layout {
+  height: 100%;
+}
+
+.block {
+  height: 50%;
+}
+
+/*image */
+#detect-area {
+  padding-top: 10px;
+}
+#img-area{
+  width: 100%;
+}
+
+#img-area img{
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+  position: relative;
+}
+
+/*Registry information*/
+#registry-infor-area {
+  padding-top: 10px;
+} 
+
+.bold {
+  font-weight: bold;
+}
+
+#information-area {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgb(175, 175, 175);
 }
 /*#endregion */
