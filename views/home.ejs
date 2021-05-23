@@ -112,15 +112,36 @@
             <!---->
             <div id="detail-info" class="group col-xl-8">
                 <div class="group-layout row">
-                    <div id="detect-area" class="col-xl-6 block">
-                        <div id="img-area">
+                    <div id="img-and-traffic-sanction" class="col-xl-6">
+                        <div id="img-area" class="col-12">
                             <img src="/Resources/images/test.jpg" height="100%" width="100%">
                         </div>
+                        <div id="detect-infor" class="col-12">
+                            <div class="row infor-block">
+                                <div class="col-6">
+                                    <p>Biển số: <span id="plate-number" class="bold">62P148495</span></p>
+                                </div>
+                                <div class="col-6">
+                                    <p>Thời gian: <span id="detect-time" class="bold">23/05/2021</span></p>
+                                </div>
+                                <div class="col-12">
+                                    <p>Vị trí: <span id="detect-position" class="bold">Xa lộ hà nội</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="traffic-sanction-area" class="col-12" style="padding: 10px 0;">
+                            <h4 style="color: tomato;">Thông tin vi phạm</h4>
+                            <div id="traffic-sanction" class="col-12">
+                                <div class="row infor-block">
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="registry-infor-area" class="col-xl-6 block">
-                        <h5 style="color: tomato;">Thông tin đăng kiểm</h5>
+                    <div id="registry-infor-area" class="col-xl-6">
+                        <h4 style="color: tomato;">Thông tin đăng kiểm</h4>
                         <div id="information-area">
-                            <div id="general-infor" class="row">
+                            <div id="general-infor" class="row infor-block">
                                 <div class="col-6" id="brand-type">
                                     <p>Nhãn hiệu: <span id="brand" class="bold">Honda</span></p>
                                     <p>Loại phương tiện: <span id="vehicle-type" class="bold">Xe máy</span></p>
@@ -131,15 +152,56 @@
                                 </div>
                                 <div class="col-12" id="owner-area">
                                     <p>Chủ sở hữu: <span id="owner" class="bold">Nguyễn Đang Trường</span></p>
-                                    <p>Địa chỉ chủ sở hữu: <span id="owner-address" class="bold">111/50 đường số 16, phường Hiệp Bình Chánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh</span></p>
+                                    <p>Địa chỉ chủ sở hữu: <span id="owner-address" class="bold">111/50 đường số 16,
+                                            phường Hiệp Bình Chánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh</span></p>
+                                </div>
+                            </div>
+
+                            <div id="specification-infor" class="row infor-block">
+                                <div class="col-6" id="color-capacity">
+                                    <p>Màu sơn: <span id="color" class="bold">Đen đỏ</span></p>
+                                </div>
+                                <div class="col-6" id="capacity-area">
+                                    <p>Dung tích: <span id="capacity" class="bold">150</span></p>
+                                </div>
+                                <div class="col-12">
+                                    <p>Số lượng chổ ngồi: <span id="seat-capacity" class="bold">2</span></p>
+                                </div>
+                                <div class="col-12" id="size-area">
+                                    <p>
+                                        Kích thước: Dài: <span id="length" class="bold">1,23</span> &ensp;
+                                        Rộng: <span id="width" class="bold">4,56</span> &ensp;
+                                        Cao: <span id="length" class="bold">7,89</span> (m)
+                                    </p>
+                                </div>
+                                <div class="col-12">
+                                    <p>Đăng kí lần đầu ngày: <span id="first-registry-date"
+                                            class="bold">15/05/1999</span></p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="bold">Lần đăng kiểm gần nhất </p>
+                                    <div id="recent-registry" class="row" style="padding-left: 20px;">
+                                        <div class="col-6">
+                                            <p>Ngày kiểm định: <span id="recent-registry-date"
+                                                    class="bold">07/07/1999</span></p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Hạn hiệu lực: <span id="registry-due-date" class="bold">07/07/2020</span>
+                                            </p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Đơn vị kiểm định: <span id="registry-department"
+                                                    class="bold">2093S</span></p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Số tem: <span id="stamp-number" class="bold">123456789</span></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id="traffic-sanction-area" class="col-xl-6 block" style="background-color: bisque;">
-                        <p style="position: absolute; z-index: 1;">dsagd</p>
-                    </div>
-                    <div id="stolen-area" class="col-xl-6 block"></div>
+
                 </div>
             </div>
         </div>
