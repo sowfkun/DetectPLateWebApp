@@ -1,14 +1,5 @@
 @charset "utf-8";
 
-@font-face {
-    font-family: 'main_font';
-    src: url('../../Resources/font/Yanone/Yanone-Regular.eot?#iefix') format('embedded-opentype'),  
-        url('../../Resources/font/Yanone/Yanone-Regular.woff') format('woff'), 
-        url('../../Resources/font/Yanone/Yanone-Regular.ttf')  format('truetype'), 
-        url('../../Resources/font/Yanone/Yanone-Regular.svg#Yanone/Yanone-Regular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
 html, body{
     height: 100%;
 }
@@ -30,7 +21,6 @@ html, body{
     margin-bottom: 10px !important;
     box-shadow: 0 0 5px cadetblue;
 }
-
 
 #login{
     height: 100%;
@@ -62,7 +52,6 @@ html, body{
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-family: main_font;
 
 }
 

@@ -54,51 +54,48 @@
             <!---->
             <div id="normal-detected-list" class="group col-xl-4">
                 <div class="group-layout">
-                    <h1 class="title" style="color: green;">Phương tiện bình thường</h1>
+                    <h1 class="title" style="color: green;">Danh sách phương tiện</h1>
 
                     <div class="table-result-area" id="normal-vehicle-area">
                         <div class="table-header">
                             <table>
                                 <tr class="head">
-                                    <th class="col-time" style="width: 30%;">Thời gian</th>
-                                    <th class="col-plate-number" style="width: 30%;">Biển số</th>
-                                    <th class="col">Hình ảnh</th>
+                                    <th class="table-col">Thời gian</th>
+                                    <th class="table-col">Biển số</th>
+                                    <th class="table-col">Trạng thái</th>
                                 </tr>
                             </table>
                         </div>
                         <div class="table-body">
                             <table>
                                 <tr class="table-row">
-                                    <td class="col-time-value">
+                                    <td class="table-col">
                                         <p>12:34</p>
                                         <p>15/05/1999</p>
                                     </td>
-                                    <td class="col-plateno-value">62P148495</td>
-                                    <td class="col-img">
-                                        <img src="/Resources/images/test.jpg" class="small-image" height="auto"
-                                            width="90px">
+                                    <td class="table-col">62P148495</td>
+                                    <td class="table-col">
+                                        <span><strong>Bình thường</strong></span>
+                                    </td>
+                                </tr>
+                                <tr class="table-row alert-danger">
+                                    <td class="table-col">
+                                        <p>12:34</p>
+                                        <p>15/05/1999</p>
+                                    </td>
+                                    <td class="table-col">62P148495</td>
+                                    <td class="table-col">
+                                        <span><strong>Bình thường</strong></span>
                                     </td>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="col-time-value">
+                                    <td class="table-col">
                                         <p>12:34</p>
                                         <p>15/05/1999</p>
                                     </td>
-                                    <td class="col-plateno-value">62P148495</td>
-                                    <td class="col-img">
-                                        <img src="/Resources/images/test.jpg" class="small-image" height="auto"
-                                            width="90px">
-                                    </td>
-                                </tr>
-                                <tr class="table-row">
-                                    <td class="col-time-value">
-                                        <p>12:34</p>
-                                        <p>15/05/1999</p>
-                                    </td>
-                                    <td class="col-plateno-value">62P148495</td>
-                                    <td class="col-img">
-                                        <img src="/Resources/images/test.jpg" class="small-image" height="auto"
-                                            width="90px">
+                                    <td class="table-col">62P148495</td>
+                                    <td class="table-col">
+                                        <span><strong>Bình thường</strong></span>
                                     </td>
                                 </tr>
                             </table>
@@ -113,6 +110,7 @@
             <div id="detail-info" class="group col-xl-8">
                 <div class="group-layout row">
                     <div id="img-and-traffic-sanction" class="col-xl-6">
+                        <!--display image and information detected-->
                         <div id="img-area" class="col-12">
                             <img src="/Resources/images/test.jpg" height="100%" width="100%">
                         </div>
@@ -129,18 +127,41 @@
                                 </div>
                             </div>
                         </div>
+                        <!--traffic sanction information-->
                         <div id="traffic-sanction-area" class="col-12" style="padding: 10px 0;">
-                            <h4 style="color: tomato;">Thông tin vi phạm</h4>
-                            <div id="traffic-sanction" class="col-12">
+                            <h5 style="color: tomato;">Thông tin phạt nguội</h5>
+                            <div id="traffic-sanction" class="col-12 ">
                                 <div class="row infor-block">
-                                    
+                                    <div class="col-6 status-box">
+                                        <p id="sanction-status" style="margin: 0;"><strong>Có</strong></p>
+                                    </div>
+                                    <div class="col-6">
+                                        <button id="sanction-detail" class="button-detail btn btn-info">Chi
+                                            tiết</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--traffic was stolen or not-->
+                        <div id="stolen-area" class="col-12" style="padding: 3px 0 10px 0;">
+                            <h5 style="color: tomato;">Phương tiện thuộc danh sách bị trộm cướp</h5>
+                            <div class="col-12">
+                                <div id="stolen" class="row infor-block ">
+                                    <div class="col-6 status-box">
+                                        <p id="stolen-status" style="margin: 0;"><strong>Có</strong></p>
+                                    </div>
+                                    <div class="col-6">
+                                        <button id="stolen-detail" class="button-detail btn btn-info">Chi tiết</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!--Registry information-->
                     <div id="registry-infor-area" class="col-xl-6">
-                        <h4 style="color: tomato;">Thông tin đăng kiểm</h4>
+                        <h5 style="color: tomato;">Thông tin đăng kiểm</h5>
                         <div id="information-area">
+                            <!--General information-->
                             <div id="general-infor" class="row infor-block">
                                 <div class="col-6" id="brand-type">
                                     <p>Nhãn hiệu: <span id="brand" class="bold">Honda</span></p>
@@ -156,7 +177,7 @@
                                             phường Hiệp Bình Chánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh</span></p>
                                 </div>
                             </div>
-
+                            <!--Specification information-->
                             <div id="specification-infor" class="row infor-block">
                                 <div class="col-6" id="color-capacity">
                                     <p>Màu sơn: <span id="color" class="bold">Đen đỏ</span></p>
@@ -198,6 +219,13 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <!--Button report wrong detection and button confirm-->
+
+                            <div id="confirm-area" class="row infor-block">
+                                <button type="button" class="btn btn-danger" style="margin-right: 15px">Báo cáo thông tin</button>
+                                <button type="button" class="btn btn-success" style="margin-left: 15px;">Xác
+                                    nhận</button>
                             </div>
                         </div>
                     </div>
