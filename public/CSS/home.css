@@ -48,6 +48,7 @@ body {
 
 .group-layout {
   height: 100%;
+  width: 100%;
   background-color: white;
   border-radius: 5px;
 }
@@ -97,6 +98,7 @@ body {
 /*image */
 #img-and-traffic-sanction {
   padding-top: 10px;
+  padding-left: 10px;
 }
 #img-area {
   width: 100%;
