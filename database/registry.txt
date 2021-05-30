@@ -1,0 +1,111 @@
+db.createCollection("registry", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: ["plate_number", "brand", "type", "chasis_no", "engine_no", "owner", "owner_address", "color", "capacity", "seat_capacity", "size", "first_registry_date"],
+         properties: {
+            plate_number: {
+               bsonType: "string",
+               description: "required and must be a string"
+            },
+            brand: {
+               bsonType: "string",
+               description: "required and must be a string"
+            },
+            type: {
+               bsonType: "string",
+               description: "required and must be a string"
+            },
+            chasis_no: {
+               bsonType: "string",
+               description: "required and must be a string"
+            },
+            engine_no: {
+               bsonType: "string",
+               description: "required and must be a string"
+            },
+            owner: {
+               bsonType: "string",
+               description: "required and must be a string"
+            },
+            owner_address: {
+               bsonType: "string",
+               description: "required and must be a string"
+            },
+            color: {
+               bsonType: "string",
+               description: "required and must be a string"
+            },
+            capacity: {
+               bsonType: "number",
+               description: "required and must be a string"
+            },
+            seat_capacity: {
+               bsonType: "number",
+               description: "required and must be a string"
+            },
+            size: {
+               bsonType: "object",
+               required: ["length", "width", "height"],
+               properties: {
+                  length: {
+                     bsonType: "number",
+                     description: "required and must be a number"
+                  },
+                  width: {
+                     bsonType: "number",
+                     description: "must be a number"
+                  },
+                  height: {
+                     bsonType: "number",
+                     description: "must be a number"
+                  }
+               }
+            },
+            first_registry_date: {
+               bsonType: "date",
+               description: "required and must be a date"
+            },
+            recent_registry: {
+               bsonType: "object",
+               required: ["registry_date", "expired_date", "department", "stamp_number"],
+               properties: {
+                  registry_date: {
+                     bsonType: "date",
+                     description: "required and must be a date"
+                  },
+                  expired_date: {
+                     bsonType: "date",
+                     description: "must be a date"
+                  },
+                  department: {
+                     bsonType: "string",
+                     description: "must be a string"
+                  },
+                  stamp_number: {
+                     bsonType: "string",
+                     description: "must be a string"
+                  }
+               }
+            },
+         }
+      }
+   }
+})
+
+
+db.registry.insert({
+   "plate_number": "62P148495",
+   "brand": "Honda",
+   "type": "xe 2 bánh",
+   "chasis_no": "123456789",
+   "engine_no": "987654321",
+   "owner": "Nguyễn Đang Trường",
+   "owner_address": "Long An",
+   "color": "Đen",
+   "capacity": 125,
+   "seat_capacity": 2,
+   "size": {"length": 1, "width": 1, "height": 1},
+   "first_registry_date": new Date(2021,05,15),
+   "recent_registry": {"registry_date": new Date(2021,05,15), "expired_date": new Date(2021,05,15), "department": "abc", "stamp_number": "abc"}
+})

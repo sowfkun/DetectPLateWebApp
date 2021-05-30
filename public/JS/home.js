@@ -18,4 +18,7 @@ $("#img-area img").hover(function () {
     $(this).css({ "transform": "scale(1)", "margin-left":"0"});
 })
 
-
+// on event new Detection
+socket.on("NewDetection", (data)=>{
+    console.log(data);
+});

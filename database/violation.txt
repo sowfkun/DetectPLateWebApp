@@ -1,0 +1,50 @@
+use platedetectdb
+db.createCollection("violation", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["plate_number", "violation", "time_violation", "position_violation", "department", "violation_status"],
+            properties: {
+                plate_number: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                violation: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                penalty_fee:{
+                    bsonType: "number",
+                    description: "must be a number and is required"
+                },
+                time_violation: {
+                    bsonType: "date",
+                    description: "must be a date and is required"
+                },
+                position_violation: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                department: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                violation_status: {
+                    enum: ["paid", "notpaid"],
+                    description: "can only be paid or notpaid"
+                }
+            }
+        }
+    }
+})
+
+
+db.violation.insert({
+   "plate_number": "62P148495",
+   "violation": "Vượt đèn đỏ",
+   "time_violation": new Date(2021,05,15),
+   "position_violation": "Quận 9",
+   "penalty_fee": 500000,
+   "department": "Đội cảnh sát giao thông Rạch chiếc",
+   "violation_status": "paid", 
+})

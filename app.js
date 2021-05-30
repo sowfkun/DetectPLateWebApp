@@ -1,23 +1,39 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
+
+/**
+ * Module dependencies.
+ */
+
+var createError  = require('http-errors');
+var express      = require('express');
+var path         = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var app = express();
+var logger       = require('morgan');
+var app          = express();
+var http         = require('http');
+
 require('dotenv').config();
 
-var loginRouter = require('./routes/login_router');
-var HomeRouter = require('./routes/home_router')
-var apiRouter = require('./routes/apiRouter');
+/**
+ * import Router
+ */
 
-// Mongo connection
+var loginRouter = require('./routes/login_router');
+var HomeRouter  = require('./routes/home_router')
+var apiRouter   = require('./routes/apiRouter');
+
+/**
+ * Mongodb connection
+ */
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGOOSE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
-// view engine setup
+/**
+ * Set up (view, parser)
+ */
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -27,22 +43,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', loginRouter);
-app.use('/home', HomeRouter);
-app.use('/api', apiRouter);
+/**
+ * Create HTTP server have socket io
+ */
 
-// Socket io
-const server = require('http').createServer(app);
+var server = http.createServer(app);
+
 const io = require('socket.io')(server);
-
 app.use(function (req, res, next) {
-  req.i = i;
+  req.io = io;
   next();
 });
-//connect event
+// new connection event
 io.on("connection", () => {
   console.log("New connection...")
 });
+
+/**
+ * Define Route
+ */
+
+app.use('/', loginRouter);
+app.use('/home', HomeRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -60,4 +83,5 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+
+module.exports = server;

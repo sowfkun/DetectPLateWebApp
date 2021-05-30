@@ -1,0 +1,34 @@
+db.createCollection("stolen", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["plate_number", "time_stolen", "position_stolen", "stolen_status"],
+            properties: {
+                plate_number: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                time_stolen: {
+                    bsonType: "date",
+                    description: "must be a date and is required"
+                },
+                position_stolen: {
+                    bsonType: "string",
+                    description: "must be a string and is required"
+                },
+                stolen_status: {
+                    enum: ["found", "notfound"],
+                    description: "can only be found or notfound"
+                }
+            }
+        }
+    }
+})
+
+db.stolen.insert({
+   "plate_number": "62P148495",
+   "violation": "Vượt đèn đỏ",
+   "time_stolen": new Date(2021,05,15),
+   "position_stolen": "Quận 9",
+   "stolen_status": "found", 
+})

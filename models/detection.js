@@ -2,44 +2,35 @@ var mongoose = require("mongoose");
 
 
 var detectionSchema = new mongoose.Schema({
-    drink_id: {
-      type: String,
-      required: [true, 'drink_id is required']
-    },
-    category_id: {
-      type: String,
-      required: [true, 'category_id is required']
-    },
-    name: { 
-        type: String, 
-        required: [true, 'name is required']
-    },
-    price: { 
-        type: Object, 
-        required: [true, 'name is required'],
-        properties:{
-            size_m:{
-                type: Number
-            },
-            size_l:{
-                type: Number,
-                required: [true, 'name is required']
-            } 
-        }
-    }, 
-    status: { 
+    plate_number: {
         type: String,
-        enum: [ "active", "inactive" ]
+        required: [true, 'plate_number is required']
     },
-    img: {
+    img_url: {
         type: String,
-        require:  [true, 'img is required']
+        required: [true, 'img_url is required']
     },
-    topping: {
+    time_detect: {
+        type: Date,
+        required: [true, 'time_detect is required']
+    },
+    position_detect: {
+        type: String  
+    },
+    stolen_status: {
         type: Boolean,
-        require: [true, 'topping is required']
+        require: [true, 'stolen_status is required']
+    },
+    registry_status: {
+        type: String,
+        enum: ["registed", "expired", "no_need"],
+        require: [true, 'registry_status is required']
+    },
+    sanction_status: {
+        type: Boolean,
+        require: [true, 'sanction_status is required']
     }
-  });
-var Drink = mongoose.model("Drink", drinkSchema, "drink");
+});
+var Detection = mongoose.model("Detection", detectionSchema, "detection");
 
-module.exports = Drink;
+module.exports = Detection;
