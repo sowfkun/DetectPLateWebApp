@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -10,7 +9,6 @@ var cookieParser = require('cookie-parser');
 var logger       = require('morgan');
 var app          = express();
 var http         = require('http');
-
 require('dotenv').config();
 
 /**
@@ -24,6 +22,7 @@ var apiRouter   = require('./routes/apiRouter');
 /**
  * Mongodb connection
  */
+
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGOOSE_URL, {
   useNewUrlParser: true,
@@ -54,10 +53,6 @@ app.use(function (req, res, next) {
   req.io = io;
   next();
 });
-// new connection event
-io.on("connection", () => {
-  console.log("New connection...")
-});
 
 /**
  * Define Route
@@ -67,12 +62,18 @@ app.use('/', loginRouter);
 app.use('/home', HomeRouter);
 app.use('/api', apiRouter);
 
-// catch 404 and forward to error handler
+/**
+ * catch 404 and forward to error handler
+ */
+
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
+/**
+ * error handler
+ */
+
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
@@ -82,6 +83,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 
 module.exports = server;

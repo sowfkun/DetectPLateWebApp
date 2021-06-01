@@ -64,24 +64,15 @@
                         <div class="table-header">
                             <table>
                                 <tr class="head">
-                                    <th class="table-col">Thời gian</th>
-                                    <th class="table-col">Biển số</th>
-                                    <th class="table-col">Trạng thái</th>
+                                    <th class="table-col" style="width: 25%">Thời gian</th>
+                                    <th class="table-col" style="width: 30%">Biển số</th>
+                                    <th class="table-col" style="width: 45%">Trạng thái</th>
                                 </tr>
                             </table>
                         </div>
                         <div class="table-body">
                             <table>
-                                <tr class="table-row">
-                                    <td class="table-col">
-                                        <p>12:34</p>
-                                        <p>15/05/1999</p>
-                                    </td>
-                                    <td class="table-col">62P148495</td>
-                                    <td class="table-col">
-                                        <span><strong>Bình thường</strong></span>
-                                    </td>
-                                </tr>
+                                
                             </table>
                         </div>
                     </div>
@@ -101,27 +92,26 @@
                         <div id="detect-infor" class="col-12">
                             <div class="row infor-block">
                                 <div class="col-6">
-                                    <p>Biển số: <span id="plate-number" class="bold">62P148495</span></p>
+                                    <p>Biển số: <span id="plate-number" class="bold"></span></p>
                                 </div>
                                 <div class="col-6">
-                                    <p>Thời gian: <span id="detect-time" class="bold">23/05/2021</span></p>
+                                    <p>Thời gian: <span id="detect-time" class="bold"></span></p>
                                 </div>
                                 <div class="col-12">
-                                    <p>Vị trí: <span id="detect-position" class="bold">Xa lộ hà nội</span></p>
+                                    <p>Vị trí: <span id="detect-position" class="bold"></span></p>
                                 </div>
                             </div>
                         </div>
                         <!--traffic sanction information-->
-                        <div id="traffic-sanction-area" class="col-12" style="padding: 10px 0;">
+                        <div id="traffic-sanction-area" class="col-12" style="padding: 10px 0; ">
                             <h5 style="color: tomato;">Thông tin phạt nguội</h5>
                             <div id="traffic-sanction" class="col-12 ">
                                 <div class="row infor-block">
-                                    <div class="col-6 status-box">
-                                        <p id="sanction-status" style="margin: 0;"><strong>Có</strong></p>
+                                    <div class="col-8 status-box">
+                                        <p style="margin: 0;"><strong id="sanction-status">Có</strong></p>
                                     </div>
-                                    <div class="col-6">
-                                        <button id="sanction-detail" class="button-detail btn btn-info">Chi
-                                            tiết</button>
+                                    <div class="col-4">
+                                        <button id="sanction-detail" disabled class="button-detail btn btn-info" onclick="ShowViolationDetail()">Chi tiết</button>
                                     </div>
                                 </div>
                             </div>
@@ -131,10 +121,10 @@
                             <h5 style="color: tomato;">Phương tiện thuộc danh sách bị trộm cướp</h5>
                             <div class="col-12">
                                 <div id="stolen" class="row infor-block ">
-                                    <div class="col-6 status-box">
-                                        <p id="stolen-status" style="margin: 0;"><strong>Có</strong></p>
+                                    <div class="col-8 status-box">
+                                        <p style="margin: 0;"><strong id="stolen-status"></strong></p>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-4">
                                         <button id="stolen-detail" class="button-detail btn btn-info">Chi tiết</button>
                                     </div>
                                 </div>
@@ -148,58 +138,53 @@
                             <!--General information-->
                             <div id="general-infor" class="row infor-block">
                                 <div class="col-6" id="brand-type">
-                                    <p>Nhãn hiệu: <span id="brand" class="bold">Honda</span></p>
-                                    <p>Loại phương tiện: <span id="vehicle-type" class="bold">Xe máy</span></p>
+                                    <p>Nhãn hiệu: <span id="brand" class="bold"></span></p>
+                                    <p>Loại phương tiện: <span id="vehicle-type" class="bold"></span></p>
                                 </div>
                                 <div class="col-6" id="chasis-engine-no">
-                                    <p>Số khung: <span id="chasis-no" class="bold">123456789</span></p>
-                                    <p>Số máy: <span id="engine-no" class="bold">987654321</span></p>
+                                    <p>Số khung: <span id="chasis-no" class="bold"></span></p>
+                                    <p>Số máy: <span id="engine-no" class="bold"></span></p>
                                 </div>
                                 <div class="col-12" id="owner-area">
-                                    <p>Chủ sở hữu: <span id="owner" class="bold">Nguyễn Đang Trường</span></p>
-                                    <p>Địa chỉ chủ sở hữu: <span id="owner-address" class="bold">111/50 đường số 16,
-                                            phường Hiệp Bình Chánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh</span></p>
+                                    <p>Chủ sở hữu: <span id="owner" class="bold"></span></p>
+                                    <p>Địa chỉ chủ sở hữu: <span id="owner-address" class="bold"></span></p>
                                 </div>
                             </div>
                             <!--Specification information-->
                             <div id="specification-infor" class="row infor-block">
                                 <div class="col-6" id="color-capacity">
-                                    <p>Màu sơn: <span id="color" class="bold">Đen đỏ</span></p>
+                                    <p>Màu sơn: <span id="color" class="bold"></span></p>
                                 </div>
                                 <div class="col-6" id="capacity-area">
-                                    <p>Dung tích: <span id="capacity" class="bold">150</span></p>
+                                    <p>Dung tích: <span id="capacity" class="bold"></span></p>
                                 </div>
                                 <div class="col-12">
-                                    <p>Số lượng chổ ngồi: <span id="seat-capacity" class="bold">2</span></p>
+                                    <p>Số lượng chổ ngồi: <span id="seat-capacity" class="bold"></span></p>
                                 </div>
                                 <div class="col-12" id="size-area">
                                     <p>
-                                        Kích thước: Dài: <span id="length" class="bold">1,23</span> &ensp;
-                                        Rộng: <span id="width" class="bold">4,56</span> &ensp;
-                                        Cao: <span id="length" class="bold">7,89</span> (m)
+                                        Kích thước: Dài: <span id="length" class="bold"></span> &ensp;
+                                        Rộng: <span id="width" class="bold"></span> &ensp;
+                                        Cao: <span id="height" class="bold"></span> (m)
                                     </p>
                                 </div>
                                 <div class="col-12">
-                                    <p>Đăng kí lần đầu ngày: <span id="first-registry-date"
-                                            class="bold">15/05/1999</span></p>
+                                    <p>Đăng kí lần đầu ngày: <span id="first-registry-date" class="bold"></span></p>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12" id="recent-registry-area">
                                     <p class="bold">Lần đăng kiểm gần nhất </p>
                                     <div id="recent-registry" class="row" style="padding-left: 20px;">
                                         <div class="col-6">
-                                            <p>Ngày kiểm định: <span id="recent-registry-date"
-                                                    class="bold">07/07/1999</span></p>
+                                            <p>Ngày kiểm định: <span id="recent-registry-date" class="bold"></span></p>
                                         </div>
                                         <div class="col-6">
-                                            <p>Hạn hiệu lực: <span id="registry-due-date" class="bold">07/07/2020</span>
-                                            </p>
+                                            <p>Hạn hiệu lực: <span id="registry-expired-date" class="bold"></span></p>
                                         </div>
                                         <div class="col-6">
-                                            <p>Đơn vị kiểm định: <span id="registry-department"
-                                                    class="bold">2093S</span></p>
+                                            <p>Đơn vị kiểm định: <span id="registry-department" class="bold"></span></p>
                                         </div>
                                         <div class="col-6">
-                                            <p>Số tem: <span id="stamp-number" class="bold">123456789</span></p>
+                                            <p>Số tem: <span id="stamp-number" class="bold"></span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -208,8 +193,7 @@
 
                             <div id="confirm-area" class="row infor-block">
                                 <button type="button" class="btn btn-danger" style="margin-right: 15px">Báo cáo thông tin sai</button>
-                                <button type="button" class="btn btn-success" style="margin-left: 15px;">Xác
-                                    nhận</button>
+                                <button type="button" class="btn btn-success" style="margin-left: 15px;">Xác nhận</button>
                             </div>
                         </div>
                     </div>

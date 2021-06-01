@@ -71,7 +71,7 @@ var registrySchema = new mongoose.Schema({
                 type: Date,
                 required: [true, "registry_date is required"]
             },
-            due_date: {
+            expired_date: {
                 type: Date,
                 required: [true, "due_date is required"]
             },

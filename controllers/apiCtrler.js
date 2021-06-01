@@ -2,12 +2,13 @@ var Detection = require("../models/detection");
 var Registry  = require("../models/registry");
 var Stolen    = require("../models/stolen");
 var Violation = require("../models/violation");
-
+var Helper    = require("../helper")
 
 module.exports.ProcessDataFromEdge = function (req, res) {
     
-    image     = req.files[0];
-    imgUrl    = "result/" + image.originalname;
+    // image     = req.files[0];
+    // imgUrl    = "result/" + image.originalname;
+    imgUrl    = "result/";
     listPlate = req.body.listplate;
 
     if (typeof (listPlate) == "string")
@@ -21,7 +22,19 @@ module.exports.ProcessDataFromEdge = function (req, res) {
     res.end("done");
 }
 
-function CheckPlateAndCreateDocument(plate, imgUrl, req) {
+async function CheckPlateAndCreateDocument(plate, imgUrl, req) {
+
+    // Check if vehicle detected or not
+    // If vehicle detected then return
+    FindResult = await Detection.find({plate_number: plate}, { time_detect: 1, plate_number: 1, _id: 0 }).sort({ time_detect: -1 }).limit(1);
+
+    if (FindResult.length !== 0) {
+        isDetected = Helper.checkTwoDateIsSameDate(FindResult[0]._doc.time_detect, new Date());
+        if (isDetected) {
+            return;
+        }
+    }
+
     Promise.all([
         Stolen.find({ "plate_number": plate, "stolen_status": "notfound" }),
         Violation.find({ "plate_number": plate, "violation_status": "notpaid" }),
@@ -46,19 +59,26 @@ function CheckPlateAndCreateDocument(plate, imgUrl, req) {
         var newDetection = new Detection({
             plate_number: plate,
             img_url: imgUrl,
-            time_detect: Date.now(),
+            time_detect: new Date(),
             stolen_status: stolen_status,
             registry_status: registry_status,
             sanction_status: sanction_status,
         });
-        console.log(newDetection)
+
         // store in database
         newDetection.save((function (err, doc) {
             if (err) throw err;
             console.log("Detection inserted")
         }));
 
+        Data = {
+            detection: newDetection,
+            stolen: Stolen,
+            registry: Registry,
+            violation: Violation
+        }
+
         // emit event new detection
-        req.io.emit("NewDetection", "success");
+        req.io.emit("NewDetection", Data);
     })
 }
