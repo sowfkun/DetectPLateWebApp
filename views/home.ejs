@@ -65,7 +65,16 @@
                         </div>
                         <div class="table-body">
                             <table>
-                                
+                                <tr class="table-row ${alert}" onclick="ShowDetailByPlateNumber('62P148495')">
+                                    <td class="table-col" style="width: 25%">
+                                        <p>${timeFormat}</p>
+                                        <p>${dateFormat}</p>
+                                    </td>
+                                    <td class="table-col" style="width: 30%">${detection.plate_number}</td>
+                                    <td class="table-col" style="width: 45%">
+                                        <span><strong>${status}</strong></span>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -112,7 +121,7 @@
                             <!--Show stolen detail-->
                             <div class="modal fade" id="violationModal" tabindex="-1" role="dialog" aria-labelledby="violationModalLabel"
                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog" role="document" style="max-width: 1200px">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="violationModalLabel">Thông tin chi tiết</h5>
@@ -121,7 +130,20 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            
+                                            <table style="width: 100%;">
+                                                <thead id="violation-table-header">
+                                                    <tr>
+                                                        <th class="col-2">Lỗi vi phạm</th>
+                                                        <th class="col-2">Thời gian</th>
+                                                        <th class="col-4">Địa điểm</th>
+                                                        <th class="col-1">Mức phạt</th>
+                                                        <th class="col-3">Đơn vị phát hiện vi phạm</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="violation-table-body">
+                                                    
+                                                </tbody>
+                                            </table>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -133,8 +155,8 @@
                         <!--traffic was stolen or not-->
                         <div id="stolen-area" class="col-12" style="padding: 3px 0 10px 0;">
                             <h5 style="color: tomato;">Phương tiện thuộc danh sách bị trộm cướp</h5>
-                            <div class="col-12">
-                                <div id="stolen" class="row infor-block">
+                            <div class="col-12" style="padding: 0;">
+                                <div id="stolen" class="infor-block">
                                     <div id="stolen-layout" class="row" style="min-height: 70px;">
                                         <div class="col-3">
                                             <p style="margin: 0;"><strong id="stolen-date"></strong></p>

@@ -85,28 +85,61 @@ function AppendToTableOfDetectedVehicle(detection) {
 }
 
 /**
+ * When click a detection in table, query data in database and fill data
+ */
+
+function ShowDetailByPlateNumber(plateNumber) {
+
+    $.ajax({
+        type: "POST",
+        url: "api/GetDataByPlateNumber",
+        dataType: "json",
+        data: {plateNumber: plateNumber},
+        cache: false
+    }).done (function (data) {
+        FillDetectData(data.detection, data.stolen, data.registry, data.violation)
+    }).fail(function() {
+        console.log("error when connect to server");
+    });
+}
+
+/**
  * Fill detect detail 
  */
 
-function FillDetectData(detection, stolen, registry, violation){
+function FillDetectData(detection = "undefined", stolen, registry, violation){
     // detection information
     $("#img-area img").css("display", "block");
     $("#img-area img").attr("src", detection.img_url);
     $("#plate-number").text(detection.plate_number);
-    $("#detect-time").text(detection.time_detect.toLocalString());
+    $("#detect-time").text(detection.time_detect);
     if (typeof (detection.position_detect) !== "undefined") {
         $("#plate-number").text(detection.position_detect);
     }
-
+    console.log(detection)
     // Violation
-    if (detection.violation_status == true){
+    if (detection.sanction_status == true){
         $("#sanction-status").text("Phương tiện đang bị phạt nguội");
         $("#traffic-sanction-area").css("opacity", 1);
-        $("#sanction-detail").attr("disabled", true);
+        $("#sanction-detail").attr("disabled", false);
+
+        $("#violation-table-body").text("");
+        violation.forEach(violation => {
+            element = `
+                <tr>
+                    <td class="col-2">${violation.violation}</td>
+                    <td class="col-2">${violation.time_violation}</td>
+                    <td class="col-4">${violation.position_violation}</td>
+                    <td class="col-1">${violation.penalty_fee.toLocaleString()} đ</td>
+                    <td class="col-3">${violation.department}</td>
+                </tr>
+            `;
+            $("#violation-table-body").append(element);
+        });
     } else {
         $("#sanction-status").text("Không");
         $("#traffic-sanction-area").css("opacity", 0.3);
-        $("#sanction-detail").attr("disabled", false);
+        $("#sanction-detail").attr("disabled", true);
     }
 
     // stolen
@@ -115,7 +148,7 @@ function FillDetectData(detection, stolen, registry, violation){
         $("#stolen-area").css("opacity", 1);
         $("#stolen-date").text(stolen.time_stolen);
         $("#stolen-position").text(stolen.position_stolen);
-        $("#stolen-status").text(stolen.stolen_status);
+        $("#stolen-status").text("Chưa tìm thấy");
     } else {
         $("#stolen").css("background-color", "white");
         $("#stolen-area").css("opacity", 0.3);
@@ -147,13 +180,13 @@ function FillDetectData(detection, stolen, registry, violation){
         $("#stamp-number").text("");
     } else {
         $("#recent-registry-area").css("opacity", 1);
-        $("#recent-registry-date").text(registry.recent_registry.registry_date.toLocalString());
-        $("#registry-expired-date").text(registry.recent_registry.expired_date.toLocalString());
+        $("#recent-registry-date").text(registry.recent_registry.registry_date);
+        $("#registry-expired-date").text(registry.recent_registry.expired_date);
         $("#registry-department").text(registry.recent_registry.department);
         $("#stamp-number").text(registry.recent_registry.stamp_number);
     }
 
-    if (detection.registry_status == "expired") {
+    if (detection.registry_status == "outofdate") {
         $("#registry-status").text("Hết hạn đăng kiểm");
         $("#recent-registry-area").css("background-color", "#fff3cd");
     }

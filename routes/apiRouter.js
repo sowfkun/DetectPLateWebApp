@@ -20,5 +20,8 @@ const apiCtrler = require('../controllers/apiCtrler')
 // Receive data from egde
 router.post('/ProcessDataFromEdge', upload.array("image"), apiCtrler.ProcessDataFromEdge);
 
+router.post('/GetDataByPlateNumber',  apiCtrler.GetDataByPlateNumber);
+
+
 
 module.exports = router;

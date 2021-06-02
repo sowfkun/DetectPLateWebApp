@@ -4,6 +4,10 @@ var Stolen    = require("../models/stolen");
 var Violation = require("../models/violation");
 var Helper    = require("../helper")
 
+/**
+ * Receive data from edge, query from database and send to front end
+ */
+
 module.exports.ProcessDataFromEdge = function (req, res) {
     
     // image     = req.files[0];
@@ -22,6 +26,39 @@ module.exports.ProcessDataFromEdge = function (req, res) {
     res.end("done");
 }
 
+/**
+ * Find Data of a PLate Number then send to front end
+ */
+
+module.exports.GetDataByPlateNumber = async function (req, res) {
+
+    plateNumber = req.body.plateNumber;
+
+    CurrentDate = new Date(new Date().toDateString());
+    nextDay     = new Date(CurrentDate);
+    nextDay.setDate(nextDay.getDate() + 1);
+
+    Promise.all([
+        Detection.find({ time_detect: { $gte: CurrentDate, $lt: nextDay }, plate_number: plateNumber }),
+        Stolen.find({ "plate_number": plateNumber, "stolen_status": "notfound" }),
+        Violation.find({ "plate_number": plateNumber, "violation_status": "notpaid" }).sort({ time_violation: -1 }),
+        Registry.find({ "plate_number": plateNumber })
+    ]).then(([Detection, Stolen, Violation, Registry]) => {
+        data = {
+            detection: Detection[0],
+            stolen: Stolen[0],
+            registry: Registry[0],
+            violation: Violation
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(data));
+    })
+}
+
+/**
+ * Helper function 
+ */
+
 async function CheckPlateAndCreateDocument(plate, imgUrl, req) {
 
     // Check if vehicle detected or not
@@ -37,7 +74,7 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req) {
 
     Promise.all([
         Stolen.find({ "plate_number": plate, "stolen_status": "notfound" }),
-        Violation.find({ "plate_number": plate, "violation_status": "notpaid" }),
+        Violation.find({ "plate_number": plate, "violation_status": "notpaid" }).sort({ time_violation: -1 }),
         Registry.find({ "plate_number": plate })
     ]).then(([Stolen, Violation, Registry]) => {
 
@@ -73,8 +110,8 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req) {
 
         Data = {
             detection: newDetection,
-            stolen: Stolen,
-            registry: Registry,
+            stolen: Stolen[0],
+            registry: Registry[0],
             violation: Violation
         }
 
