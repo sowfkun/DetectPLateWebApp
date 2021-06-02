@@ -1,9 +1,8 @@
 @charset "utf-8";
-
-html,
-body {
+html, body {
   height: 100%;
 }
+
 /*#region Navigation bar */
 
 .bd-navbar {
@@ -16,6 +15,7 @@ body {
 }
 
 /* Search form*/
+
 #manual-search label {
   margin-right: 15px;
   color: antiquewhite;
@@ -37,6 +37,7 @@ body {
 /*#endregion */
 
 /*#region main layout*/
+
 #main-layout {
   background-color: #e4e4e4;
 }
@@ -54,6 +55,7 @@ body {
 }
 
 /* Detect List */
+
 .title {
   text-align: center;
   font-size: 23px;
@@ -91,18 +93,23 @@ body {
 }
 
 /* Detail information*/
+
 #detail-info .group-layout {
   height: 100%;
 }
 
 /*image */
+
 #img-and-traffic-sanction {
   padding-top: 10px;
   padding-left: 10px;
 }
+
 #img-area {
   width: 100%;
   padding: 0;
+  box-shadow: 0px 4px 5px rgb(124, 124, 124);
+  min-height: 275px;
 }
 
 #img-area img {
@@ -113,11 +120,13 @@ body {
 }
 
 /*detect infor*/
+
 #detect-infor {
   margin-top: 30px;
 }
 
 /* Stolen and sanction area */
+
 .disable {
   opacity: 30%;
 }
@@ -132,7 +141,15 @@ body {
   flex-direction: column;
 }
 
+#stolen-layout div {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
 /*Registry information*/
+
 #registry-infor-area {
   padding-top: 10px;
 }
@@ -153,9 +170,17 @@ body {
   padding: 10px 0;
 }
 
+#general-infor {
+  min-height: 205px;
+}
+
+#recent-registry-area {
+  min-height: 147px;
+}
 /* confirm-area */
+
 #confirm-area {
-  margin-top: 15px;
+  margin-top: 10px;
   align-items: center;
   display: flex;
   justify-content: center;

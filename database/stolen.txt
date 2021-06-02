@@ -27,7 +27,6 @@ db.createCollection("stolen", {
 
 db.stolen.insert({
    "plate_number": "62P148495",
-   "violation": "Vượt đèn đỏ",
    "time_stolen": new Date(2021,05,15),
    "position_stolen": "Quận 9",
    "stolen_status": "found", 

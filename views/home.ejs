@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/CSS/home.css">
     <title>Home</title>
     <script src="socket.io/socket.io.js"></script>
@@ -23,15 +24,7 @@
                 <li class="nav-item">
                     <a class="nav-link " href="/home">Trang chủ</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active">Lịch sử</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link "></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"></a>
-                </li>
+               
             </ul>
         </div>
         <!-- manual search -->
@@ -87,7 +80,7 @@
                     <div id="img-and-traffic-sanction" class="col-xl-6">
                         <!--display image and information detected-->
                         <div id="img-area" class="col-12">
-                            <img src="/Resources/images/test.jpg" height="100%" width="100%">
+                            <img src="" height="100%" width="100%" style="display: none;">
                         </div>
                         <div id="detect-infor" class="col-12">
                             <div class="row infor-block">
@@ -111,7 +104,28 @@
                                         <p style="margin: 0;"><strong id="sanction-status">Có</strong></p>
                                     </div>
                                     <div class="col-4">
-                                        <button id="sanction-detail" disabled class="button-detail btn btn-info" onclick="ShowViolationDetail()">Chi tiết</button>
+                                        <button id="sanction-detail" class="button-detail btn btn-info" data-toggle="modal" data-target="#violationModal">Chi tiết</button>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <!--Show stolen detail-->
+                            <div class="modal fade" id="violationModal" tabindex="-1" role="dialog" aria-labelledby="violationModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="violationModalLabel">Thông tin chi tiết</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -120,12 +134,17 @@
                         <div id="stolen-area" class="col-12" style="padding: 3px 0 10px 0;">
                             <h5 style="color: tomato;">Phương tiện thuộc danh sách bị trộm cướp</h5>
                             <div class="col-12">
-                                <div id="stolen" class="row infor-block ">
-                                    <div class="col-8 status-box">
-                                        <p style="margin: 0;"><strong id="stolen-status"></strong></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <button id="stolen-detail" class="button-detail btn btn-info">Chi tiết</button>
+                                <div id="stolen" class="row infor-block">
+                                    <div id="stolen-layout" class="row" style="min-height: 70px;">
+                                        <div class="col-3">
+                                            <p style="margin: 0;"><strong id="stolen-date"></strong></p>
+                                        </div>
+                                        <div class="col-6" style="padding: 0;">
+                                            <p style="margin: 0;"><strong id="stolen-position"></strong></p>
+                                        </div>
+                                        <div class="col-3">
+                                            <p style="margin: 0;"><strong id="stolen-status"></strong></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -186,6 +205,9 @@
                                         <div class="col-6">
                                             <p>Số tem: <span id="stamp-number" class="bold"></span></p>
                                         </div>
+                                        <div class="col-12">
+                                            <p style="font-size: 18px; color: tomato; text-align: center; margin: 0;"><strong id="registry-status"></strong></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -197,11 +219,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </div>
     <!-- #endregion -->
 </body>
@@ -217,10 +237,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- import bootstrap -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<!--jquery confirm-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <!--import font awesome-->
 <script src="https://kit.fontawesome.com/a0df4ac8c5.js"></script>

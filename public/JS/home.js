@@ -1,7 +1,5 @@
 //#region SetUpAndEffect
 
-const Registry = require("../../models/registry");
-
 /**
  * set height for main layout
  */
@@ -34,7 +32,6 @@ $("#img-area img").hover(function () {
     $(this).css({ "transform": "scale(1)", "margin-left":"0"});
 })
 //#endregion
-
 
 
 //#region EventAndFunction  
@@ -93,6 +90,8 @@ function AppendToTableOfDetectedVehicle(detection) {
 
 function FillDetectData(detection, stolen, registry, violation){
     // detection information
+    $("#img-area img").css("display", "block");
+    $("#img-area img").attr("src", detection.img_url);
     $("#plate-number").text(detection.plate_number);
     $("#detect-time").text(detection.time_detect.toLocalString());
     if (typeof (detection.position_detect) !== "undefined") {
@@ -113,14 +112,16 @@ function FillDetectData(detection, stolen, registry, violation){
     // stolen
     if (detection.stolen_status == true) {
         $("#stolen").css("background-color", "#f8d7da");
-        $("#stolen-status").text("Có");
         $("#stolen-area").css("opacity", 1);
-        $("#stolen-detail").attr("disabled", true);
+        $("#stolen-date").text(stolen.time_stolen);
+        $("#stolen-position").text(stolen.position_stolen);
+        $("#stolen-status").text(stolen.stolen_status);
     } else {
         $("#stolen").css("background-color", "white");
-        $("#stolen-status").text("Không");
         $("#stolen-area").css("opacity", 0.3);
-        $("#stolen-detail").attr("disabled", false);
+        $("#stolen-date").text("");
+        $("#stolen-position").text("");
+        $("#stolen-status").text("");
     }
 
     // Registry
@@ -150,6 +151,11 @@ function FillDetectData(detection, stolen, registry, violation){
         $("#registry-expired-date").text(registry.recent_registry.expired_date.toLocalString());
         $("#registry-department").text(registry.recent_registry.department);
         $("#stamp-number").text(registry.recent_registry.stamp_number);
+    }
+
+    if (detection.registry_status == "expired") {
+        $("#registry-status").text("Hết hạn đăng kiểm");
+        $("#recent-registry-area").css("background-color", "#fff3cd");
     }
 }
 //#endregion
