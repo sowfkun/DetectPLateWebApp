@@ -26,7 +26,6 @@ $(".table-body").css("height", $(".table-result-area").height() - headerHeight +
  */
 
 $("#img-area img").hover(function () {
-    console.log("hover")
     $(this).css({ "transform": "scale(1.7)", "transform-origin": "top right"});
 }, function () {
     $(this).css({ "transform": "scale(1)", "margin-left":"0"});
@@ -56,7 +55,7 @@ function AppendToTableOfDetectedVehicle(detection) {
     dateFormat = timeDetect.getDate() + "/" + (timeDetect.getMonth() + 1) + "/" + timeDetect.getFullYear();
 
     if (detection.stolen_status) {
-        status = "Mất cắp";
+        status = "Bị trộm cướp";
         alert  = "alert alert-danger";
     } else if (detection.sanction_status) {
         status = "Đang phạt nguội";
@@ -70,7 +69,7 @@ function AppendToTableOfDetectedVehicle(detection) {
     }
 
     var element = `
-        <tr class="table-row ${alert}" onclick="ShowDetailByPlateNumber("${detection.plate_number}")">
+        <tr class="table-row ${alert}" id="${detection.plate_number}">
             <td class="table-col" style="width: 25%">
                 <p>${timeFormat}</p>
                 <p>${dateFormat}</p>
@@ -88,8 +87,11 @@ function AppendToTableOfDetectedVehicle(detection) {
  * When click a detection in table, query data in database and fill data
  */
 
-function ShowDetailByPlateNumber(plateNumber) {
+$("body").on("click", ".table-body table tr", function(){
+    plateNumber = $(this).attr("id");
 
+    //show loading
+    $(".lds-roller").css("display", "block");
     $.ajax({
         type: "POST",
         url: "api/GetDataByPlateNumber",
@@ -97,11 +99,12 @@ function ShowDetailByPlateNumber(plateNumber) {
         data: {plateNumber: plateNumber},
         cache: false
     }).done (function (data) {
-        FillDetectData(data.detection, data.stolen, data.registry, data.violation)
+        FillDetectData(data.detection, data.stolen, data.registry, data.violation);
+        $(".lds-roller").css("display", "none");
     }).fail(function() {
         console.log("error when connect to server");
     });
-}
+});
 
 /**
  * Fill detect detail 
@@ -112,11 +115,10 @@ function FillDetectData(detection = "undefined", stolen, registry, violation){
     $("#img-area img").css("display", "block");
     $("#img-area img").attr("src", detection.img_url);
     $("#plate-number").text(detection.plate_number);
-    $("#detect-time").text(detection.time_detect);
+    $("#detect-time").text(FormatMongoDateIntoDayMonthYear(detection.time_detect));
     if (typeof (detection.position_detect) !== "undefined") {
         $("#plate-number").text(detection.position_detect);
     }
-    console.log(detection)
     // Violation
     if (detection.sanction_status == true){
         $("#sanction-status").text("Phương tiện đang bị phạt nguội");
@@ -128,7 +130,7 @@ function FillDetectData(detection = "undefined", stolen, registry, violation){
             element = `
                 <tr>
                     <td class="col-2">${violation.violation}</td>
-                    <td class="col-2">${violation.time_violation}</td>
+                    <td class="col-2">${FormatMongoDateIntoDayMonthYear(violation.time_violation)}</td>
                     <td class="col-4">${violation.position_violation}</td>
                     <td class="col-1">${violation.penalty_fee.toLocaleString()} đ</td>
                     <td class="col-3">${violation.department}</td>
@@ -146,7 +148,7 @@ function FillDetectData(detection = "undefined", stolen, registry, violation){
     if (detection.stolen_status == true) {
         $("#stolen").css("background-color", "#f8d7da");
         $("#stolen-area").css("opacity", 1);
-        $("#stolen-date").text(stolen.time_stolen);
+        $("#stolen-date").text(FormatMongoDateIntoDayMonthYear(stolen.time_stolen));
         $("#stolen-position").text(stolen.position_stolen);
         $("#stolen-status").text("Chưa tìm thấy");
     } else {
@@ -170,7 +172,7 @@ function FillDetectData(detection = "undefined", stolen, registry, violation){
     $("#length").text(registry.size.length);
     $("#width").text(registry.size.width);
     $("#height").text(registry.size.height);
-    $("#first-registry-date").text(registry.first_registry_date);
+    $("#first-registry-date").text(FormatMongoDateIntoDayMonthYear(registry.first_registry_date));
 
     if (typeof(registry.recent_registry) == "undefined") {
         $("#recent-registry-area").css("opacity", 0.3);
@@ -180,15 +182,27 @@ function FillDetectData(detection = "undefined", stolen, registry, violation){
         $("#stamp-number").text("");
     } else {
         $("#recent-registry-area").css("opacity", 1);
-        $("#recent-registry-date").text(registry.recent_registry.registry_date);
-        $("#registry-expired-date").text(registry.recent_registry.expired_date);
+        $("#recent-registry-date").text(FormatMongoDateIntoDayMonthYear(registry.recent_registry.registry_date));
+        $("#registry-expired-date").text(FormatMongoDateIntoDayMonthYear(registry.recent_registry.expired_date));
         $("#registry-department").text(registry.recent_registry.department);
         $("#stamp-number").text(registry.recent_registry.stamp_number);
     }
 
-    if (detection.registry_status == "outofdate") {
+    if (detection.registry_status == "expired") {
         $("#registry-status").text("Hết hạn đăng kiểm");
         $("#recent-registry-area").css("background-color", "#fff3cd");
     }
+}
+
+/**
+ * Format Mongo Date to dd/MM/yyyy  
+ */
+function FormatMongoDateIntoDayMonthYear(date) {
+    newDate = new Date(date);
+
+    date    = newDate.getDate() < 10 ? "0" + newDate.getDate() : newDate.getDate();
+    month   = newDate.getMonth() < 9 ? "0" + (newDate.getMonth() + 1) : newDate.getMonth() + 1;
+    year    = newDate.getFullYear();
+    return  date + "/" + month + "/" + year;
 }
 //#endregion

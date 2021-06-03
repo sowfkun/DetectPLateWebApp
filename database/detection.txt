@@ -2,7 +2,7 @@ db.createCollection("detection", {
    validator: {
       $jsonSchema: {
          bsonType: "object",
-         required: ["plate_number", "img_url", "time_detect", "position_detect", "stolen_status", "registry_status", "sanction_status"],
+         required: ["plate_number", "img_url", "time_detect", "stolen_status", "registry_status", "sanction_status"],
          properties: {
             plate_number: {
                bsonType: "string",

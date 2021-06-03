@@ -84,9 +84,9 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req) {
         sanction_status = Violation.length == 0 ? false : true;
         // If recent registry is empty then registry status is "noneed" 
         // Else if date is less than currentDate status is expired
-        if (typeof (Registry.recent_registry) == "undefined") {
+        if (typeof (Registry[0].recent_registry) == "undefined") {
             registry_status = "no_need";
-        } else if (Registry.recent_registry.expired_date > Date.now()) {
+        } else if (Registry[0].recent_registry.expired_date < Date.now()) {
             registry_status = "expired";
         } else {
             registry_status = "registed";
@@ -96,7 +96,7 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req) {
         var newDetection = new Detection({
             plate_number: plate,
             img_url: imgUrl,
-            time_detect: new Date(),
+            time_detect: Date.now(),
             stolen_status: stolen_status,
             registry_status: registry_status,
             sanction_status: sanction_status,
