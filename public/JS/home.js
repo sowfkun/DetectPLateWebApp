@@ -1,3 +1,5 @@
+$(".lds-roller").css("display", "block");
+
 //#region SetUpAndEffect
 
 /**
@@ -26,7 +28,7 @@ $(".table-body").css("height", $(".table-result-area").height() - headerHeight +
  */
 
 $("#img-area img").hover(function () {
-    $(this).css({ "transform": "scale(1.7)", "transform-origin": "top right"});
+    $(this).css({ "transform": "scale(2)", "transform-origin": "top right"});
 }, function () {
     $(this).css({ "transform": "scale(1)", "margin-left":"0"});
 })
@@ -34,6 +36,29 @@ $("#img-area img").hover(function () {
 
 
 //#region EventAndFunction  
+
+/**
+ * when load page, get detection of current date
+ */
+
+GetDetectionOfCurrentDate();
+function GetDetectionOfCurrentDate(){
+    $.ajax({
+        type: "GET",
+        url: "api/GetDetectionOfCurrentDate",
+        dataType: "json",
+        cache: false
+    }).done (function (data) {
+        data.forEach(detection => {
+            AppendToTableOfDetectedVehicle(detection);
+        });
+        id  = "#" + data[data.length - 1].plate_number;
+        $(id).click();
+        $(".lds-roller").css("display", "none");
+    }).fail(function() {
+        console.log("error when connect to server");
+    });
+}
 
 /**
  * on event new Detection
@@ -45,6 +70,7 @@ socket.on("NewDetection", (data)=>{
     FillDetectData(data.detection, data.stolen, data.registry, data.violation)
 });
 
+
 /**
  * Append new Detection into list Table
  */
@@ -55,21 +81,21 @@ function AppendToTableOfDetectedVehicle(detection) {
     dateFormat = timeDetect.getDate() + "/" + (timeDetect.getMonth() + 1) + "/" + timeDetect.getFullYear();
 
     if (detection.stolen_status) {
-        status = "Bị trộm cướp";
-        alert  = "alert alert-danger";
+        status     = "Bị trộm cướp";
+        background = "#f8d7da";
     } else if (detection.sanction_status) {
-        status = "Đang phạt nguội";
-        alert  = "alert alert-warning";
+        status     = "Đang phạt nguội";
+        background = "#fff3cd";
     } else if (detection.registry_status == "expired") {
-        status = "Hết hạn đăng kiểm";
-        alert  = "alert alert-warning";
+        status     = "Hết hạn đăng kiểm";
+        background = "#fff3cd";
     } else {
-        status = "Bình thường";
-        alert  = "";
+        status     = "Bình thường";
+        background = "white";
     }
 
     var element = `
-        <tr class="table-row ${alert}" id="${detection.plate_number}">
+        <tr class="table-row" id="${detection.plate_number}" style="background-color: ${background}">
             <td class="table-col" style="width: 25%">
                 <p>${timeFormat}</p>
                 <p>${dateFormat}</p>
@@ -77,6 +103,8 @@ function AppendToTableOfDetectedVehicle(detection) {
             <td class="table-col" style="width: 30%">${detection.plate_number}</td>
             <td class="table-col" style="width: 45%">
                 <span><strong>${status}</strong></span>
+            </td>
+            <td class="table-col active" id="active_${detection.plate_number}" style="display: none; background: red; position: absolute; width: 10px; height: 65px; right:10px;">
             </td>
         </tr>
     `;
@@ -111,6 +139,10 @@ $("body").on("click", ".table-body table tr", function(){
  */
 
 function FillDetectData(detection = "undefined", stolen, registry, violation){
+    // active select detection
+    $(".active").css("display", "none");
+    $("#active_" + detection.plate_number).css("display", "block");
+
     // detection information
     $("#img-area img").css("display", "block");
     $("#img-area img").attr("src", detection.img_url);

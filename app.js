@@ -16,7 +16,7 @@ require('dotenv').config();
  */
 
 var loginRouter = require('./routes/login_router');
-var HomeRouter  = require('./routes/home_router')
+var homeRouter  = require('./routes/home_router')
 var apiRouter   = require('./routes/apiRouter');
 
 /**
@@ -54,12 +54,17 @@ app.use(function (req, res, next) {
   next();
 });
 
+//sự kiện kết nối
+io.on("connection", ()=>{
+  console.log("New connection...")
+});
+
 /**
  * Define Route
  */
 
-app.use('/', loginRouter);
-app.use('/home', HomeRouter);
+app.use('/', homeRouter);
+app.use('/login', loginRouter);
 app.use('/api', apiRouter);
 
 /**

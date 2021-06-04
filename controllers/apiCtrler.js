@@ -10,11 +10,10 @@ var Helper    = require("../helper")
 
 module.exports.ProcessDataFromEdge = function (req, res) {
     
-    // image     = req.files[0];
-    // imgUrl    = "result/" + image.originalname;
-    imgUrl    = "result/";
+    image     = req.files[0];
+    imgUrl    = "result/" + image.originalname;
     listPlate = req.body.listplate;
-
+    
     if (typeof (listPlate) == "string")
         CheckPlateAndCreateDocument(listPlate.toUpperCase(), imgUrl, req);
     else
@@ -53,6 +52,39 @@ module.exports.GetDataByPlateNumber = async function (req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(data));
     })
+}
+
+/**
+ * Find Data of a PLate Number then send to front end
+ */
+
+ module.exports.GetDetectionOfCurrentDate = async function (req, res) {
+
+    CurrentDate = new Date(new Date().toDateString());
+    nextDay     = new Date(CurrentDate);
+    nextDay.setDate(nextDay.getDate() + 1);
+
+    detection = await Detection.find({ time_detect: { $gte: CurrentDate, $lt: nextDay } }).sort({ time_detect: 1 });
+    res.writeHead(200, {'Content-type': 'application/json'});
+    res.end(JSON.stringify(detection));
+    
+}
+
+
+/**
+ * Login
+ */
+
+module.exports.Login = function (req, res) {
+    username = req.body.username.trim();
+    password = req.body.password.trim();
+
+    if (username == "" || username == "undefined" || password == "" || password == "undefined") {
+        res.end(JSON.stringify("error"));
+        return;
+    } 
+
+    console.log(username, password);
 }
 
 /**
@@ -117,5 +149,6 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req) {
 
         // emit event new detection
         req.io.emit("NewDetection", Data);
+        
     })
 }

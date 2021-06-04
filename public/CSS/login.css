@@ -6,7 +6,7 @@ html, body{
 
 /*background*/
 #background{
-    background: linear-gradient(-135deg, #d87111, #dfa563);
+    background: linear-gradient(-135deg, #563d7c, #8a60c9);
     height: 100%;
 }
 /*Vùng hiển thị các thông báo*/
@@ -31,6 +31,7 @@ html, body{
     height: 100%;
     width: 100%;
     border-radius: 10px;
+    min-height: 400px;
 }
 
 #image{
@@ -56,10 +57,10 @@ html, body{
 }
 
 .form_title{
-    font-size: 40px;
+    font-size: 35px;
     text-align: center;
     margin-bottom: 30px;
-    color: #ee8a3e;
+    color: #128597;
     text-transform: uppercase;
 }
 
@@ -70,16 +71,16 @@ html, body{
 
 .input i{
     font-size: 30px;
-    color: #ee8a3e;
+    color: #128597;
     position: absolute;
     transition: margin-left 0.5s ease-in;
 }
 .input input{
-    height: 35px;
-    width: 60%;
+    height: 40px;
+    width: 75%;
     text-indent: 40px;
     border: none;
-    box-shadow: 0 0 5px #ee8a3e;
+    box-shadow: 0 0 5px #128597;
     padding-top: 5px;
     transition: all 0.5s ease-in;
     background-color: transparent;
@@ -92,18 +93,10 @@ html, body{
 }
 
 .btn{
-    font-size: 20px;
-    background-color: #ee8a3e;
+    font-size: 16px;
+    background-color: #128597;
     color: white;
     height: 35px;
     border: none;
     line-height: 25px;
-}
-
-.switch:hover{
-    cursor: pointer;
-}
-
-.resendOTP:hover{
-    cursor: pointer;
 }
