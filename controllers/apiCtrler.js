@@ -2,6 +2,7 @@ var Detection = require("../models/detection");
 var Registry  = require("../models/registry");
 var Stolen    = require("../models/stolen");
 var Violation = require("../models/violation");
+var User      = require("../models/user");
 var Helper    = require("../helper")
 
 /**
@@ -70,21 +71,44 @@ module.exports.GetDataByPlateNumber = async function (req, res) {
     
 }
 
-
 /**
  * Login
  */
+
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
+const cookieParams = {
+    httpOnly: true,
+    signed: true,
+    expires: new Date(Date.now() + 18000000)
+};
 
 module.exports.Login = function (req, res) {
     username = req.body.username.trim();
     password = req.body.password.trim();
 
-    if (username == "" || username == "undefined" || password == "" || password == "undefined") {
+    if (username == "" || username == "undefined" || password == "" || password == "undefined" || password.length < 5) {
         res.end(JSON.stringify("error"));
         return;
     } 
 
-    console.log(username, password);
+    User.find({username: username}, {_id: 0, username: 1, password: 1}).then((docs) => {
+        if (docs.length > 0) {
+            bcrypt.compare(password, docs[0].password, function (err, result) {
+                if (result == false) {
+                    res.writeHead(200, { 'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({'msg': "fail"}));
+                } else {
+                    res.cookie('_hh', docs[0].username, cookieParams);
+                    res.writeHead(200, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({'msg': "success"}));
+                }
+            });
+        } else {
+            res.writeHead(200, { 'Content-Type': 'application/json'});
+            res.end(JSON.stringify({'msg': "fail"}));
+        }
+    });
 }
 
 /**

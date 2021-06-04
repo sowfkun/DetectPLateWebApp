@@ -39,8 +39,17 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+/**
+ * Cookie parser
+ */
+
+var cookieParser      = require('cookie-parser');
+const cookieEncrypter =  require('cookie-encrypter')
+const secretKey       = process.env.SECRET_KEY;
+app.use(cookieParser(secretKey));
+app.use(cookieEncrypter(secretKey));
 
 /**
  * Create HTTP server have socket io

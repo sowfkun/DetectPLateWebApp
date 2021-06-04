@@ -55,6 +55,7 @@ $("#btn_login").on('click', function(){
         data: {username: username, password: password},
         cache: false
     }).done (function (data) {
+        console.log(data)
         if(data.msg == "success"){
             //hiển thị thông báo
             var msg = "Đăng nhập thành công";

@@ -6,7 +6,9 @@
     "start": "nodemon --inspect ./bin/www"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
+    "bcrypt": "^5.0.1",
+    "cookie-encrypter": "^1.0.1",
+    "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
     "ejs": "~2.6.1",
