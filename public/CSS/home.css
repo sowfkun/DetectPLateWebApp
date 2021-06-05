@@ -3,6 +3,22 @@ html, body {
   height: 100%;
 }
 
+/*alert box*/
+.alert_box{
+  width: 270px;
+  float: right;
+  height: fit-content;
+  padding: 5px;
+  right: 10px;
+  top: 50px;
+  position: absolute;
+}
+.alert{
+  z-index: 10000;
+  margin-bottom: 10px !important;
+  box-shadow: 0 0 5px cadetblue;
+}
+
 /*#region Navigation bar */
 
 .bd-navbar {
@@ -34,6 +50,29 @@ html, body {
   color: white;
 }
 
+/*Manual search*/
+#manual-violation table th, td {
+  text-align: center;
+}
+
+#manual-information-area p {
+  margin-bottom: 5px;
+}
+
+#manual-body tr {
+  border: solid 1px rgb(129, 129, 129);
+}
+
+#manual-body tr:hover {
+  background-color: rgb(223, 223, 223);
+}
+
+#manual-stolen-layout div {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
 /*#endregion */
 
 /*#region main layout*/
@@ -208,11 +247,17 @@ html, body {
   justify-content: center;
 }
 
-
-
 /*#endregion */
 
-/*loader*/
+/*#region loading*/
+/*loading*/
+#header-loading {
+  float: left;
+  height: 10px;
+  position: relative;
+  box-shadow: none;
+}
+
 .lds-roller {
   display: inline-block;
   position: absolute;
@@ -302,3 +347,7 @@ html, body {
     transform: rotate(360deg);
   }
 }
+
+/*#endregion */
+
+

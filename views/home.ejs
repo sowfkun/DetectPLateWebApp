@@ -15,6 +15,10 @@
 
 <body>
 
+    <!--hiển thị alert-->
+    <div class="alert_box">
+           
+    </div>
     <!-- #region header-->
     <!---->
     <!---->
@@ -24,23 +28,162 @@
                 <li class="nav-item">
                     <a class="nav-link " href="/home">Trang chủ</a>
                 </li>
-               
             </ul>
         </div>
+        
         <!-- manual search -->
         <div id="manual-search" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            <!--Loading-->
+            <div id="header-loading" style="display: none;" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
             <form class="form-inline">
                 <label for="search-box">Tìm thủ công</label>
                 <input id="search-box" class="form-control mr-sm-2" type="search" placeholder="Nhập số xe">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                <button id="search-button" class="btn btn-outline-success my-2 my-sm-0" type="button">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
         </div>
+        <!-- Show manual search -->
+        <button type="button" style="display: none;" id="show-manual-search"  class="btn btn-primary" data-backdrop="static" data-keyboard="false"
+            data-toggle="modal" data-target="#manualSearchModal">
+            Launch
+        </button>
+    
+        <!-- Modal -->
+        <div class="modal fade" id="manualSearchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document" style="max-width: 1300px">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding-top: 5px; padding-bottom: 5px;">
+                        <h5 class="modal-title" id="plate-number-title" style="color: tomato;"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="padding: 0;">
+                        <div id="manual-detail-info" class="group col-xl-12" style="padding: 0;">
+                            <div class="group-layout" style="margin: 0;">
+                               
+                                <!--Registry information-->
+                                <div id="registry-infor-area" class="col-xl-12" style="padding-top:0">
+                                    <h5 style="color: tomato;">Thông tin đăng kiểm</h5>
+                                    <div id="manual-information-area">
+                                        <!--General information-->
+                                        <div id="manual-general-infor" class="row infor-block col-12" style="margin: 0;">
+                                            <div class="col-4" id="manual-brand-type">
+                                                <p>Nhãn hiệu: <span id="manual-brand" class="bold"></span></p>
+                                                <p>Loại phương tiện: <span id="manual-vehicle-type" class="bold"></span></p>
+                                            </div>
+                                            <div class="col-4" id="chasis-engine-no">
+                                                <p>Số khung: <span id="manual-chasis-no" class="bold"></span></p>
+                                                <p>Số máy: <span id="manual-engine-no" class="bold"></span></p>
+                                            </div>
+                                            <div class="col-4" id="manual-brand-type">
+                                                <p>Màu sơn: <span id="manual-color" class="bold"></span></p>
+                                                <p>Dung tích: <span id="manual-capacity" class="bold"></span></p>
+                                            </div>
+                                            <div class="col-4" id="manual-brand-type">
+                                                <p>Số lượng chổ ngồi: <span id="manual-seat-capacity" class="bold"></span></p>
+                                                <p>
+                                                    Kích thước: Dài: <span id="manual-length" class="bold"></span> &ensp;
+                                                    Rộng: <span id="manual-width" class="bold"></span> &ensp;
+                                                    Cao: <span id="manual-height" class="bold"></span> (m)
+                                                </p>
+                                            </div>
+                                            <div class="col-8" id="manual-owner-area">
+                                                <p>Địa chỉ chủ sở hữu: <span id="manual-owner-address" class="bold"></span></p>
+                                                <p>Đăng kí lần đầu ngày: <span id="manual-first-registry-date" class="bold"></span></p>
+                                            </div>
+                                            <div class="col-12" id="manual-registry-area" style="margin: 0; min-height: 130px;">
+                                                <p class="bold">Lần đăng kiểm gần nhất </p>
+                                                <div id="manual-registry" class="row col-8" style="padding-left: 30px;">
+                                                    <div class="col-6" style="padding-right: 0;">
+                                                        <p>Ngày kiểm định: <span id="manual-registry-date"
+                                                                class="bold"></span></p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <p>Hạn hiệu lực: <span id="manual-registry-expired-date"
+                                                                class="bold"></span></p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <p>Đơn vị kiểm định: <span id="manual-registry-department"
+                                                                class="bold"></span></p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <p>Số tem: <span id="manual-stamp-number" class="bold"></span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <p style="font-size: 20px; color: tomato; text-align: center; margin: 0;">
+                                                        <strong id="manual-registry-status"></strong></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="manual-violation-stole" class="col-xl-12" style="padding-left: 0; margin-top: 10px;">
+                                    <!--traffic sanction and stolen information-->
+                                    <div id="manual-violation-area" class="col-12" >
+                                        <h5 style="color: tomato;">Thông tin phạt nguội</h5>
+                                        <div id="manual-violation" class="col-12 " style="height: 135px">
+                                           
+                                            <div class="row infor-block" style="margin-top: 5px;">
+                                                <div style="width: 100%; padding-right: 17px;"  >
+                                                    <table style="width: 100%;">
+                                                        <thead id="manual-header">
+                                                            <tr>
+                                                                <th class="col-2">Lỗi vi phạm</th>
+                                                                <th class="col-2">Thời gian</th>
+                                                                <th class="col-3">Địa điểm</th>
+                                                                <th class="col-1" style="padding: 0">Mức phạt</th>
+                                                                <th class="col-3">Đơn vị phát hiện</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                                <div style="width: 100%; overflow-y: scroll; height: 90px;"  >
+                                                    <table style="width: 100%">
+                                                        <tbody id="manual-body">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--traffic was stolen or not-->
+                                    <div id="manual-stolen-area" class="col-12" style="margin-top: 10px;">
+                                        <h5 style="color: tomato;">Phương tiện thuộc danh sách bị trộm cướp</h5>
+                                        <div class="col-12" style="padding: 0;">
+                                            <div id="manual-stolen" class="infor-block" style="margin-bottom: 0; padding: 0;">
+                                                <div id="manual-stolen-layout" class="row" style="min-height: 70px;">
+                                                    <div class="col-3">
+                                                        <p style="margin: 0;">Ngày mất</p>
+                                                        <p style="margin: 0;"><strong id="manual-stolen-date">15/05/199</strong></p>
+                                                    </div>
+                                                    <div class="col-6" style="padding: 0;">
+                                                        <p style="margin: 0;">Địa điểm mất</p>
+                                                        <p style="margin: 0;"><strong id="manual-stolen-position"></strong></p>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <p style="margin: 0;">Trạng thái</p>
+                                                        <p style="margin: 0;"><strong id="manual-stolen-status"></strong></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
     <!-- #endregion -->
-
-
+    
+    
     <!-- #region main layout-->
     <!---->
     <!---->
@@ -53,7 +196,7 @@
                 <div class="group-layout">
                     <h1 class="title" style="color: green;">Danh sách phương tiện</h1>
                     <!--Loading-->
-                    <div class="lds-roller" style="display: none;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    <div class="lds-roller" id="body-loading" style="display: none;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
                     <div class="table-result-area" id="normal-vehicle-area">
                         <div class="table-header">
@@ -106,7 +249,7 @@
                                         <p style="margin: 0;"><strong id="sanction-status"></strong></p>
                                     </div>
                                     <div class="col-4">
-                                        <button id="sanction-detail" class="button-detail btn btn-info" data-toggle="modal" data-target="#violationModal">Chi tiết</button>
+                                        <button id="sanction-detail" class="button-detail btn btn-info"  data-toggle="modal" data-target="#violationModal">Chi tiết</button>
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +381,8 @@
             </div>
         </div>
     </div>
-
+    <!-- #endregion -->
+    
 </body>
 
         

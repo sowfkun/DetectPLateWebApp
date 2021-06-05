@@ -6,7 +6,6 @@ var User = require("../models/user");
 module.exports.checkLogin = async (req, res, next) => {
     // get cookie from req and get username
     var cookies  = req.signedCookies;
-    console.log(cookies);
     var username = cookies._hh;
 
     // if username is not defined then return to login page

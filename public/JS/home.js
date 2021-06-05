@@ -1,4 +1,4 @@
-$(".lds-roller").css("display", "block");
+$("#body-loading").css("display", "block");
 
 //#region SetUpAndEffect
 
@@ -32,6 +32,7 @@ $("#img-area img").hover(function () {
 }, function () {
     $(this).css({ "transform": "scale(1)", "margin-left":"0"});
 })
+
 //#endregion
 
 
@@ -49,12 +50,14 @@ function GetDetectionOfCurrentDate(){
         dataType: "json",
         cache: false
     }).done (function (data) {
-        data.forEach(detection => {
-            AppendToTableOfDetectedVehicle(detection);
-        });
-        id  = "#" + data[data.length - 1].plate_number;
-        $(id).click();
-        $(".lds-roller").css("display", "none");
+        if (data.length > 0) {
+            data.forEach(detection => {
+                AppendToTableOfDetectedVehicle(detection);
+            });
+            id  = "#" + data[data.length - 1].plate_number;
+            $(id).click();
+        }
+        $("#body-loading").css("display", "none");
     }).fail(function() {
         console.log("error when connect to server");
     });
@@ -119,7 +122,7 @@ $("body").on("click", ".table-body table tr", function(){
     plateNumber = $(this).attr("id");
 
     //show loading
-    $(".lds-roller").css("display", "block");
+    $("#body-loading").css("display", "block");
     $.ajax({
         type: "POST",
         url: "api/GetDataByPlateNumber",
@@ -127,11 +130,14 @@ $("body").on("click", ".table-body table tr", function(){
         data: {plateNumber: plateNumber},
         cache: false
     }).done (function (data) {
-        FillDetectData(data.detection, data.stolen, data.registry, data.violation);
-        $(".lds-roller").css("display", "none");
+        if (data.length > 0) {
+            FillDetectData(data.detection, data.stolen, data.registry, data.violation);
+        }
+        $("#body-loading").css("display", "none");
     }).fail(function() {
         console.log("error when connect to server");
     });
+
 });
 
 /**
@@ -229,6 +235,7 @@ function FillDetectData(detection = "undefined", stolen, registry, violation){
 /**
  * Format Mongo Date to dd/MM/yyyy  
  */
+
 function FormatMongoDateIntoDayMonthYear(date) {
     newDate = new Date(date);
 
@@ -236,5 +243,166 @@ function FormatMongoDateIntoDayMonthYear(date) {
     month   = newDate.getMonth() < 9 ? "0" + (newDate.getMonth() + 1) : newDate.getMonth() + 1;
     year    = newDate.getFullYear();
     return  date + "/" + month + "/" + year;
+}
+
+/**
+ * When click search button, query data in database and fill data
+ */
+$("#search-button").submit(function () {
+    return false;
+})
+$("#search-button").on("click", function () {
+    $("#header-loading").css("display", "block");
+
+    plateNumber = $("#search-box").val().toUpperCase();
+
+    if (plateNumber == "") {
+        alertFail("Vui lòng nhập biển số xe");
+        $("#header-loading").css("display", "none");
+        return;
+    }
+    //show loading
+    $.ajax({
+        type: "POST",
+        url: "api/GetDataByPlateNumber",
+        dataType: "json",
+        data: { plateNumber: plateNumber },
+        cache: false
+    }).done(function (data) {
+        console.log(data)
+        if (data.registry !== undefined) {
+            FillManualSearchData(plateNumber, data.stolen, data.registry, data.violation);
+            $("#show-manual-search").click();
+           
+        } else {
+            alertFail("Không tìm thấy biển số xe");
+        }
+    }).fail(function () {
+        console.log("error when connect to server");
+    });
+    $("#header-loading").css("display", "none");
+    return false;
+});
+
+
+/**
+ * Fill detect detail 
+ */
+
+ function FillManualSearchData(plateNumber, stolen, registry, violation){
+    $("#plate-number-title").text(plateNumber);
+    // Violation
+    if (violation.length > 0){
+        $("#manual-violation-area").css("opacity", 1);
+        $("#manual-body").text("");
+        violation.forEach(violation => {
+            element = `
+                <tr>
+                    <td class="col-2">${violation.violation}</td>
+                    <td class="col-2">${FormatMongoDateIntoDayMonthYear(violation.time_violation)}</td>
+                    <td class="col-3">${violation.position_violation}</td>
+                    <td class="col-1">${violation.penalty_fee.toLocaleString()} đ</td>
+                    <td class="col-3">${violation.department}</td>
+                </tr>
+            `;
+            $("#manual-body").append(element);
+        });
+    } else {
+        $("#manual-body").text("");
+        $("#manual-violation-area").css("opacity", 0.3);
+    }
+
+    // stolen
+    if (stolen !== undefined) {
+        $("#manual-stolen").css("background-color", "#f8d7da");
+        $("#manual-stolen-area").css("opacity", 1);
+        $("#manual-stolen-date").text(FormatMongoDateIntoDayMonthYear(stolen.time_stolen));
+        $("#manual-stolen-position").text(stolen.position_stolen);
+        $("#manual-stolen-status").text("Chưa tìm thấy");
+    } else {
+        $("#manual-stolen").css("background-color", "white");
+        $("#manual-stolen-area").css("opacity", 0.3);
+        $("#manual-stolen-date").text("");
+        $("#manual-stolen-position").text("");
+        $("#manual-stolen-status").text("");
+    }
+
+    // Registry
+    $("#manual-brand").text(registry.brand);
+    $("#manual-vehicle-type").text(registry.type);
+    $("#manual-chasis-no").text(registry.chasis_no);
+    $("#manual-engine-no").text(registry.engine_no);
+    $("#manual-owner").text(registry.owner);
+    $("#manual-owner-address").text(registry.owner_address);
+    $("#manual-color").text(registry.color);
+    $("#manual-capacity").text(registry.capacity);
+    $("#manual-seat-capacity").text(registry.seat_capacity);
+    $("#manual-length").text(registry.size.length);
+    $("#manual-width").text(registry.size.width);
+    $("#manual-height").text(registry.size.height);
+    $("#manual-first-registry-date").text(FormatMongoDateIntoDayMonthYear(registry.first_registry_date));
+
+    if (typeof(registry.recent_registry) == "undefined") {
+        $("#manual-registry-area").css("opacity", 0.3);
+        $("#manual-registry-date").text("");
+        $("#manual-registry-expired-date").text("");
+        $("#manual-registry-department").text("");
+        $("#manual-stamp-number").text("");
+        $("#manual-registry-status").text("");
+        $("#manual-registry-area").css("background-color", "white"); 
+    } else {
+        $("#manual-registry-area").css("opacity", 1);
+        $("#manual-registry-date").text(FormatMongoDateIntoDayMonthYear(registry.recent_registry.registry_date));
+        $("#manual-registry-expired-date").text(FormatMongoDateIntoDayMonthYear(registry.recent_registry.expired_date));
+        $("#manual-registry-department").text(registry.recent_registry.department);
+        $("#manual-stamp-number").text(registry.recent_registry.stamp_number);
+
+        if (new Date(registry.recent_registry.expired_date < new Date(new Date().toDateString()))) {
+            $("#manual-registry-status").text("Hết hạn đăng kiểm");
+            $("#manual-registry-area").css("background-color", "#fff3cd");
+        } else {
+            $("#manual-registry-status").text("");
+            $("#manual-registry-area").css("background-color", "white"); 
+        }
+    } 
+
+    
+}
+
+/**
+ * Function show success music 
+ */
+
+function alertSuccess(msg){
+    var random = Math.floor(Math.random() * 100) + 1;
+    $(".alert_box").append(`
+    <div id="alert_${random}" class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span id="msg">${msg}</span>
+    </div>`);
+    setTimeout(function(){
+        $("#alert_" + random).fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    }, 2000);
+}
+
+/**
+ * Function show fail message 
+ */
+
+function alertFail(msg){
+    var random = Math.floor(Math.random() * 100) + 1;
+    $(".alert_box").append(`
+    <div id="alert_${random}" class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span id="msg">${msg}</span>
+    </div>`);
+    
+    setTimeout(function(){
+        $("#alert_" + random).fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    }, 2000);
 }
 //#endregion
