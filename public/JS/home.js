@@ -14,7 +14,7 @@ $("#main-layout").css("height", $("body").height() - navbarHeight + "px");
  */
 
 titleHeight = $(".title").height();
-$(".table-result-area").css("height", $(".group").height() - titleHeight - 40 + "px");
+$(".table-result-area").css("height", $("#normal-detected-list").height() - titleHeight - 40 + "px");
 
 /**
  * Set height for body of table
@@ -50,6 +50,7 @@ function GetDetectionOfCurrentDate(){
         dataType: "json",
         cache: false
     }).done (function (data) {
+        console.log(data)
         if (data.length > 0) {
             data.forEach(detection => {
                 AppendToTableOfDetectedVehicle(detection);
@@ -120,7 +121,6 @@ function AppendToTableOfDetectedVehicle(detection) {
 
 $("body").on("click", ".table-body table tr", function(){
     plateNumber = $(this).attr("id");
-
     //show loading
     $("#body-loading").css("display", "block");
     $.ajax({
@@ -130,13 +130,11 @@ $("body").on("click", ".table-body table tr", function(){
         data: {plateNumber: plateNumber},
         cache: false
     }).done (function (data) {
-        if (data.length > 0) {
-            FillDetectData(data.detection, data.stolen, data.registry, data.violation);
-        }
-        $("#body-loading").css("display", "none");
+        FillDetectData(data.detection, data.stolen, data.registry, data.violation);
     }).fail(function() {
         console.log("error when connect to server");
     });
+    $("#body-loading").css("display", "none");
 
 });
 
@@ -269,7 +267,6 @@ $("#search-button").on("click", function () {
         data: { plateNumber: plateNumber },
         cache: false
     }).done(function (data) {
-        console.log(data)
         if (data.registry !== undefined) {
             FillManualSearchData(plateNumber, data.stolen, data.registry, data.violation);
             $("#show-manual-search").click();
@@ -357,7 +354,7 @@ $("#search-button").on("click", function () {
         $("#manual-registry-department").text(registry.recent_registry.department);
         $("#manual-stamp-number").text(registry.recent_registry.stamp_number);
 
-        if (new Date(registry.recent_registry.expired_date < new Date(new Date().toDateString()))) {
+            if (new Date(registry.recent_registry.expired_date) < new Date(new Date().toDateString())) {
             $("#manual-registry-status").text("Hết hạn đăng kiểm");
             $("#manual-registry-area").css("background-color", "#fff3cd");
         } else {
