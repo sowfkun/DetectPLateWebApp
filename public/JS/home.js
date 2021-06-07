@@ -57,10 +57,13 @@ function GetDetectionOfCurrentDate(){
             id  = "#" + data[data.length - 1].plate_number;
             $(id).click();
         }
-        $("#body-loading").css("display", "none");
+    $("#body-loading").css("display", "none");
+
     }).fail(function() {
         console.log("error when connect to server");
+        $("#body-loading").css("display", "none");
     });
+
 }
 
 /**
@@ -130,11 +133,11 @@ $("body").on("click", ".table-body table tr", function(){
         cache: false
     }).done (function (data) {
         FillDetectData(data.detection, data.stolen, data.registry, data.violation);
+        $("#body-loading").css("display", "none");
     }).fail(function() {
         console.log("error when connect to server");
+        $("#body-loading").css("display", "none");
     });
-    $("#body-loading").css("display", "none");
-
 });
 
 /**
@@ -273,10 +276,13 @@ $("#search-button").on("click", function () {
         } else {
             alertFail("Không tìm thấy biển số xe");
         }
+        $("#header-loading").css("display", "none");
+
     }).fail(function () {
         console.log("error when connect to server");
+        $("#header-loading").css("display", "none");
+
     });
-    $("#header-loading").css("display", "none");
     return false;
 });
 
