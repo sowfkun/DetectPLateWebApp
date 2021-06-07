@@ -9,6 +9,8 @@ var cookieParser = require('cookie-parser');
 var logger       = require('morgan');
 var app          = express();
 var http         = require('http');
+var cors         = require('cors');
+app.use(cors());
 require('dotenv').config();
 
 /**

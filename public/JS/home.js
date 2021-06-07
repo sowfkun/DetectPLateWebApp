@@ -50,7 +50,6 @@ function GetDetectionOfCurrentDate(){
         dataType: "json",
         cache: false
     }).done (function (data) {
-        console.log(data)
         if (data.length > 0) {
             data.forEach(detection => {
                 AppendToTableOfDetectedVehicle(detection);

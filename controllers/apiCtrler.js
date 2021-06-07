@@ -10,9 +10,10 @@ var Helper    = require("../helper")
  */
 
 module.exports.ProcessDataFromEdge = function (req, res) {
-    
-    image     = req.files[0];
-    imgUrl    = "result/" + image.originalname;
+
+    //image     = req.files[0];
+    //imgUrl    = "result/" + image.originalname;
+    imgUrl    = "result/";
     listPlate = req.body.listplate;
     
     if (typeof (listPlate) == "string")
@@ -21,7 +22,7 @@ module.exports.ProcessDataFromEdge = function (req, res) {
         listPlate.forEach(plate => {
             CheckPlateAndCreateDocument(plate.toUpperCase(), imgUrl, req);
         });
-
+    
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end("done");
 }

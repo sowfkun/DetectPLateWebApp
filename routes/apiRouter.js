@@ -18,7 +18,7 @@ var upload = multer({
 const apiCtrler = require('../controllers/apiCtrler')
 
 // Receive data from egde
-router.post('/ProcessDataFromEdge', middleware.checkLogin, upload.array("image"), apiCtrler.ProcessDataFromEdge);
+router.post('/ProcessDataFromEdge', upload.array("image"), apiCtrler.ProcessDataFromEdge);
 
 // Get Data of Plate Number
 router.post('/GetDataByPlateNumber', middleware.checkLogin, apiCtrler.GetDataByPlateNumber);

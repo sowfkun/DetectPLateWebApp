@@ -1,0 +1,39 @@
+server {
+    #domain name được map đến ip của máy ảo
+    #server_name  happycafe.cf www.happycafe.cf;
+    server_name  13.75.93.118;
+
+    #các truy cập bằng ip sẽ được chuyển hướng
+    if ($host = 13.75.93.118){
+        return 301 https://$server_name$request_uri;
+    }
+
+    #điểu hướng request đến container nodejs
+    location / {
+        proxy_pass http://webserver:7799;
+    }
+            
+    #Cấu hình ssl certificate
+    # listen [::]:443 ssl ipv6only=on; 
+    # listen 443 ssl; 
+
+    # ssl_certificate /etc/letsencrypt/live/happycafe.cf/fullchain.pem; 
+    # ssl_certificate_key /etc/letsencrypt/live/happycafe.cf/privkey.pem; 
+    # include /etc/letsencrypt/options-ssl-nginx.conf; 
+    # ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; 
+}
+
+#các request http sẽ được chuyển hướng thành https
+server {
+
+    # if ($host = www.happycafe.cf){
+    #     return 301 https://$host$request_uri;
+    # }
+    # if ($host = happycafe.cf){
+    #     return 301 https://$host$request_uri;
+    # }
+    listen 80;
+    listen [::]:80;
+    server_name 13.75.93.118;
+    return 404;
+}
