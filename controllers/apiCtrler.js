@@ -15,14 +15,14 @@ module.exports.ProcessDataFromEdge = function (req, res) {
     //imgUrl    = "result/" + image.originalname;
     imgUrl    = "result/";
     listPlate = req.body.listplate;
-    
+
     if (typeof (listPlate) == "string")
-        CheckPlateAndCreateDocument(listPlate.toUpperCase(), imgUrl, req);
+        CheckPlateAndCreateDocument(listPlate.toUpperCase(), imgUrl, req, res);
     else
         listPlate.forEach(plate => {
-            CheckPlateAndCreateDocument(plate.toUpperCase(), imgUrl, req);
+            CheckPlateAndCreateDocument(plate.toUpperCase(), imgUrl, req, res);
         });
-    
+
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end("done");
 }
@@ -116,7 +116,7 @@ module.exports.Login = function (req, res) {
  * Helper function 
  */
 
-async function CheckPlateAndCreateDocument(plate, imgUrl, req) {
+async function CheckPlateAndCreateDocument(plate, imgUrl, req, res) {
 
     // Check if vehicle detected or not
     // If vehicle detected then return
@@ -127,6 +127,14 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req) {
         if (isDetected) {
             return;
         }
+    }
+
+    // Check if plate exist in system or not
+    isRegistered = await Registry.find({ "plate_number": plate });
+
+    if (isRegistered.length == 0) {
+        console.log(isRegistered)
+        return;    
     }
 
     Promise.all([
@@ -174,6 +182,6 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req) {
 
         // emit event new detection
         req.io.emit("NewDetection", Data);
-        
+
     })
 }
