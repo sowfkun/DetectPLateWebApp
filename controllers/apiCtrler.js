@@ -1,9 +1,9 @@
 var Detection = require("../models/detection");
-var Registry  = require("../models/registry");
-var Stolen    = require("../models/stolen");
+var Registry = require("../models/registry");
+var Stolen = require("../models/stolen");
 var Violation = require("../models/violation");
-var User      = require("../models/user");
-var Helper    = require("../helper")
+var User = require("../models/user");
+var Helper = require("../helper")
 
 /**
  * Receive data from edge, query from database and send to front end
@@ -11,9 +11,9 @@ var Helper    = require("../helper")
 
 module.exports.ProcessDataFromEdge = function (req, res) {
 
-    //image     = req.files[0];
-    //imgUrl    = "result/" + image.originalname;
-    imgUrl    = "result/";
+    image     = req.files[0];
+    imgUrl    = "result/" + image.originalname;
+    //imgUrl = "result/";
     listPlate = req.body.listplate;
 
     if (typeof (listPlate) == "string")
@@ -27,100 +27,11 @@ module.exports.ProcessDataFromEdge = function (req, res) {
     res.end("done");
 }
 
-/**
- * Find Data of a PLate Number then send to front end
- */
-
-module.exports.GetDataByPlateNumber = async function (req, res) {
-
-    plateNumber = req.body.plateNumber;
-
-    CurrentDate = new Date(new Date().toDateString());
-    nextDay     = new Date(CurrentDate);
-    nextDay.setDate(nextDay.getDate() + 1);
-
-    Promise.all([
-        Detection.find({ time_detect: { $gte: CurrentDate, $lt: nextDay }, plate_number: plateNumber }),
-        Stolen.find({ "plate_number": plateNumber, "stolen_status": "notfound" }),
-        Violation.find({ "plate_number": plateNumber, "violation_status": "notpaid" }).sort({ time_violation: -1 }),
-        Registry.find({ "plate_number": plateNumber })
-    ]).then(([Detection, Stolen, Violation, Registry]) => {
-        data = {
-            detection: Detection[0],
-            stolen: Stolen[0],
-            registry: Registry[0],
-            violation: Violation
-        }
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(data));
-    })
-}
-
-/**
- * Find Data of a PLate Number then send to front end
- */
-
- module.exports.GetDetectionOfCurrentDate = async function (req, res) {
-
-    CurrentDate = new Date(new Date().toDateString());
-    nextDay     = new Date(CurrentDate);
-    nextDay.setDate(nextDay.getDate() + 1);
-
-    detection = await Detection.find({ time_detect: { $gte: CurrentDate, $lt: nextDay } }).sort({ time_detect: 1 });
-    res.writeHead(200, {'Content-type': 'application/json'});
-    res.end(JSON.stringify(detection));
-    
-}
-
-/**
- * Login
- */
-
-var bcrypt = require('bcrypt');
-const saltRounds = 10;
-const cookieParams = {
-    httpOnly: true,
-    signed: true,
-    expires: new Date(Date.now() + 18000000)
-};
-
-module.exports.Login = function (req, res) {
-    username = req.body.username.trim();
-    password = req.body.password.trim();
-
-    if (username == "" || username == "undefined" || password == "" || password == "undefined" || password.length < 5) {
-        res.end(JSON.stringify("error"));
-        return;
-    } 
-
-    User.find({username: username}, {_id: 0, username: 1, password: 1}).then((docs) => {
-        if (docs.length > 0) {
-            bcrypt.compare(password, docs[0].password, function (err, result) {
-                if (result == false) {
-                    res.writeHead(200, { 'Content-Type': 'application/json'});
-                    res.end(JSON.stringify({'msg': "fail"}));
-                } else {
-                    res.cookie('_hh', docs[0].username, cookieParams);
-                    res.writeHead(200, {'Content-Type': 'application/json'});
-                    res.end(JSON.stringify({'msg': "success"}));
-                }
-            });
-        } else {
-            res.writeHead(200, { 'Content-Type': 'application/json'});
-            res.end(JSON.stringify({'msg': "fail"}));
-        }
-    });
-}
-
-/**
- * Helper function 
- */
-
 async function CheckPlateAndCreateDocument(plate, imgUrl, req, res) {
 
     // Check if vehicle detected or not
     // If vehicle detected then return
-    FindResult = await Detection.find({plate_number: plate}, { time_detect: 1, plate_number: 1, _id: 0 }).sort({ time_detect: -1 }).limit(1);
+    FindResult = await Detection.find({ plate_number: plate }, { time_detect: 1, plate_number: 1, _id: 0 }).sort({ time_detect: -1 }).limit(1);
 
     if (FindResult.length !== 0) {
         isDetected = Helper.checkTwoDateIsSameDate(FindResult[0]._doc.time_detect, new Date());
@@ -134,7 +45,7 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req, res) {
 
     if (isRegistered.length == 0) {
         console.log(isRegistered)
-        return;    
+        return;
     }
 
     Promise.all([
@@ -156,7 +67,7 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req, res) {
         } else {
             registry_status = "registed";
         }
-        
+
         // Create new Detection documents
         var newDetection = new Detection({
             plate_number: plate,
@@ -185,3 +96,120 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req, res) {
 
     })
 }
+/**
+ * Find Data of a PLate Number then send to front end
+ */
+
+module.exports.GetDataByPlateNumber = async function (req, res) {
+
+    plateNumber = req.body.plateNumber;
+
+    CurrentDate = new Date(new Date().toDateString());
+    nextDay = new Date(CurrentDate);
+    nextDay.setDate(nextDay.getDate() + 1);
+
+    Promise.all([
+        Detection.find({ time_detect: { $gte: CurrentDate, $lt: nextDay }, plate_number: plateNumber }),
+        Stolen.find({ "plate_number": plateNumber, "stolen_status": "notfound" }),
+        Violation.find({ "plate_number": plateNumber, "violation_status": "notpaid" }).sort({ time_violation: -1 }),
+        Registry.find({ "plate_number": plateNumber })
+    ]).then(([Detection, Stolen, Violation, Registry]) => {
+        data = {
+            detection: Detection[0],
+            stolen: Stolen[0],
+            registry: Registry[0],
+            violation: Violation
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(data));
+    })
+}
+
+/**
+ * Find Data of a PLate Number then send to front end
+ */
+
+module.exports.GetDetectionOfCurrentDate = async function (req, res) {
+
+    CurrentDate = new Date(new Date().toDateString());
+    nextDay = new Date(CurrentDate);
+    nextDay.setDate(nextDay.getDate() + 1);
+
+    detection = await Detection.find({ time_detect: { $gte: CurrentDate, $lt: nextDay } }).sort({ time_detect: 1 });
+    res.writeHead(200, { 'Content-type': 'application/json' });
+    res.end(JSON.stringify(detection));
+
+}
+
+/**
+ * Login
+ */
+
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
+const cookieParams = {
+    httpOnly: true,
+    signed: true,
+    expires: new Date(Date.now() + 18000000)
+};
+
+module.exports.Login = function (req, res) {
+    username = req.body.username.trim();
+    password = req.body.password.trim();
+
+    if (username == "" || username == "undefined" || password == "" || password == "undefined" || password.length < 5) {
+        res.end(JSON.stringify("error"));
+        return;
+    }
+
+    User.find({ username: username }, { _id: 0, username: 1, password: 1 }).then((docs) => {
+        if (docs.length > 0) {
+            bcrypt.compare(password, docs[0].password, function (err, result) {
+                if (result == false) {
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ 'msg': "fail" }));
+                } else {
+                    res.cookie('_hh', docs[0].username, cookieParams);
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ 'msg': "success" }));
+                }
+            });
+        } else {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ 'msg': "fail" }));
+        }
+    });
+}
+
+/**
+ * Correct plate number 
+ */
+
+module.exports.CorrectPlateNumber = async function (req, res) {
+    oldNumber = req.body.oldNumber;
+    newNumber = req.body.newNumber.toUpperCase();
+    imgUrl    = req.body.imgUrl;
+
+    // Check if plate exist in system or not
+    isRegistered = await Registry.find({ "plate_number": newNumber });
+    console.log(newNumber, isRegistered.length)
+    if (isRegistered.length == 0) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify("NotRegistered"));
+        return;
+    }
+
+    // Create detection
+    CheckPlateAndCreateDocument(newNumber, imgUrl, req, res);
+
+    // Delete wrong detection
+    Detection.deleteOne({ plate_number: oldNumber }, function (err, _) {
+        if (err) {
+            return console.log(err);
+        } else {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify("Success"));
+        }
+    });
+}
+
