@@ -240,6 +240,9 @@ function FillDetectData(detection = "undefined", stolen, registry, violation) {
     if (detection.registry_status == "expired") {
         $("#registry-status").text("Hết hạn đăng kiểm");
         $("#recent-registry-area").css("background-color", "#fff3cd");
+    } else {
+        $("#registry-status").text("");
+        $("#recent-registry-area").css("background-color", "white");
     }
 }
 
