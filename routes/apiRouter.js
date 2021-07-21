@@ -26,6 +26,9 @@ router.post('/GetDataByPlateNumber', middleware.checkLogin, apiCtrler.GetDataByP
 // Get Detection of current date
 router.get('/GetDetectionOfCurrentDate', middleware.checkLogin, apiCtrler.GetDetectionOfCurrentDate);
 
+// Correct plate number
+router.post('/CorrectPlateNumber', apiCtrler.CorrectPlateNumber);
+
 // login
 router.post('/login', apiCtrler.Login);
 

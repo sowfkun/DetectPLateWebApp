@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/CSS/home.css">
     <title>Home</title>
     <script src="socket.io/socket.io.js"></script>
@@ -17,7 +18,7 @@
 
     <!--hiển thị alert-->
     <div class="alert_box">
-           
+
     </div>
     <!-- #region header-->
     <!---->
@@ -30,11 +31,20 @@
                 </li>
             </ul>
         </div>
-        
+
         <!-- manual search -->
         <div id="manual-search" class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
             <!--Loading-->
-            <div id="header-loading" style="display: none;" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <div id="header-loading" style="display: none;" class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
 
             <form class="form-inline">
                 <label for="search-box">Tìm thủ công</label>
@@ -45,11 +55,11 @@
             </form>
         </div>
         <!-- Show manual search -->
-        <button type="button" style="display: none;" id="show-manual-search"  class="btn btn-primary" data-backdrop="static" data-keyboard="false"
-            data-toggle="modal" data-target="#manualSearchModal">
+        <button type="button" style="display: none;" id="show-manual-search" class="btn btn-primary"
+            data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#manualSearchModal">
             Launch
         </button>
-    
+
         <!-- Modal -->
         <div class="modal fade" id="manualSearchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -64,16 +74,18 @@
                     <div class="modal-body" style="padding: 0;">
                         <div id="manual-detail-info" class="group col-xl-12" style="padding: 0;">
                             <div class="group-layout" style="margin: 0;">
-                               
+
                                 <!--Registry information-->
                                 <div id="registry-infor-area" class="col-xl-12" style="padding-top:0">
                                     <h5 style="color: tomato;">Thông tin đăng kiểm</h5>
                                     <div id="manual-information-area">
                                         <!--General information-->
-                                        <div id="manual-general-infor" class="row infor-block col-12" style="margin: 0;">
+                                        <div id="manual-general-infor" class="row infor-block col-12"
+                                            style="margin: 0;">
                                             <div class="col-4" id="manual-brand-type">
                                                 <p>Nhãn hiệu: <span id="manual-brand" class="bold"></span></p>
-                                                <p>Loại phương tiện: <span id="manual-vehicle-type" class="bold"></span></p>
+                                                <p>Loại phương tiện: <span id="manual-vehicle-type" class="bold"></span>
+                                                </p>
                                             </div>
                                             <div class="col-4" id="chasis-engine-no">
                                                 <p>Số khung: <span id="manual-chasis-no" class="bold"></span></p>
@@ -84,18 +96,23 @@
                                                 <p>Dung tích: <span id="manual-capacity" class="bold"></span></p>
                                             </div>
                                             <div class="col-4" id="manual-brand-type">
-                                                <p>Số lượng chổ ngồi: <span id="manual-seat-capacity" class="bold"></span></p>
+                                                <p>Số lượng chổ ngồi: <span id="manual-seat-capacity"
+                                                        class="bold"></span></p>
                                                 <p>
-                                                    Kích thước: Dài: <span id="manual-length" class="bold"></span> &ensp;
+                                                    Kích thước: Dài: <span id="manual-length" class="bold"></span>
+                                                    &ensp;
                                                     Rộng: <span id="manual-width" class="bold"></span> &ensp;
                                                     Cao: <span id="manual-height" class="bold"></span> (m)
                                                 </p>
                                             </div>
                                             <div class="col-8" id="manual-owner-area">
-                                                <p>Địa chỉ chủ sở hữu: <span id="manual-owner-address" class="bold"></span></p>
-                                                <p>Đăng kí lần đầu ngày: <span id="manual-first-registry-date" class="bold"></span></p>
+                                                <p>Địa chỉ chủ sở hữu: <span id="manual-owner-address"
+                                                        class="bold"></span></p>
+                                                <p>Đăng kí lần đầu ngày: <span id="manual-first-registry-date"
+                                                        class="bold"></span></p>
                                             </div>
-                                            <div class="col-12" id="manual-registry-area" style="margin: 0; min-height: 130px;">
+                                            <div class="col-12" id="manual-registry-area"
+                                                style="margin: 0; min-height: 130px;">
                                                 <p class="bold">Lần đăng kiểm gần nhất </p>
                                                 <div id="manual-registry" class="row col-8" style="padding-left: 30px;">
                                                     <div class="col-6" style="padding-right: 0;">
@@ -111,25 +128,29 @@
                                                                 class="bold"></span></p>
                                                     </div>
                                                     <div class="col-6">
-                                                        <p>Số tem: <span id="manual-stamp-number" class="bold"></span></p>
+                                                        <p>Số tem: <span id="manual-stamp-number" class="bold"></span>
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <p style="font-size: 20px; color: tomato; text-align: center; margin: 0;">
-                                                        <strong id="manual-registry-status"></strong></p>
+                                                    <p
+                                                        style="font-size: 20px; color: tomato; text-align: center; margin: 0;">
+                                                        <strong id="manual-registry-status"></strong>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="manual-violation-stole" class="col-xl-12" style="padding-left: 0; margin-top: 10px;">
+                                <div id="manual-violation-stole" class="col-xl-12"
+                                    style="padding-left: 0; margin-top: 10px;">
                                     <!--traffic sanction and stolen information-->
-                                    <div id="manual-violation-area" class="col-12" >
+                                    <div id="manual-violation-area" class="col-12">
                                         <h5 style="color: tomato;">Thông tin phạt nguội</h5>
                                         <div id="manual-violation" class="col-12 " style="height: 135px">
-                                           
+
                                             <div class="row infor-block" style="margin-top: 5px;">
-                                                <div style="width: 100%; padding-right: 17px;"  >
+                                                <div style="width: 100%; padding-right: 17px;">
                                                     <table style="width: 100%;">
                                                         <thead id="manual-header">
                                                             <tr>
@@ -142,7 +163,7 @@
                                                         </thead>
                                                     </table>
                                                 </div>
-                                                <div style="width: 100%; overflow-y: scroll; height: 90px;"  >
+                                                <div style="width: 100%; overflow-y: scroll; height: 90px;">
                                                     <table style="width: 100%">
                                                         <tbody id="manual-body">
                                                         </tbody>
@@ -155,19 +176,23 @@
                                     <div id="manual-stolen-area" class="col-12" style="margin-top: 10px;">
                                         <h5 style="color: tomato;">Phương tiện thuộc danh sách bị trộm cướp</h5>
                                         <div class="col-12" style="padding: 0;">
-                                            <div id="manual-stolen" class="infor-block" style="margin-bottom: 0; padding: 0;">
+                                            <div id="manual-stolen" class="infor-block"
+                                                style="margin-bottom: 0; padding: 0;">
                                                 <div id="manual-stolen-layout" class="row" style="min-height: 70px;">
                                                     <div class="col-3">
                                                         <p style="margin: 0;">Ngày mất</p>
-                                                        <p style="margin: 0;"><strong id="manual-stolen-date">15/05/199</strong></p>
+                                                        <p style="margin: 0;"><strong
+                                                                id="manual-stolen-date">15/05/199</strong></p>
                                                     </div>
                                                     <div class="col-6" style="padding: 0;">
                                                         <p style="margin: 0;">Địa điểm mất</p>
-                                                        <p style="margin: 0;"><strong id="manual-stolen-position"></strong></p>
+                                                        <p style="margin: 0;"><strong
+                                                                id="manual-stolen-position"></strong></p>
                                                     </div>
                                                     <div class="col-3">
                                                         <p style="margin: 0;">Trạng thái</p>
-                                                        <p style="margin: 0;"><strong id="manual-stolen-status"></strong></p>
+                                                        <p style="margin: 0;"><strong
+                                                                id="manual-stolen-status"></strong></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -182,8 +207,8 @@
         </div>
     </header>
     <!-- #endregion -->
-    
-    
+
+
     <!-- #region main layout-->
     <!---->
     <!---->
@@ -196,7 +221,16 @@
                 <div class="group-layout">
                     <h1 class="title" style="color: green;">Danh sách phương tiện</h1>
                     <!--Loading-->
-                    <div class="lds-roller" id="body-loading" style="display: none;"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    <div class="lds-roller" id="body-loading" style="display: none;">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
 
                     <div class="table-result-area" id="normal-vehicle-area">
                         <div class="table-header">
@@ -210,7 +244,7 @@
                         </div>
                         <div class="table-body">
                             <table>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -249,14 +283,15 @@
                                         <p style="margin: 0;"><strong id="sanction-status"></strong></p>
                                     </div>
                                     <div class="col-4">
-                                        <button id="sanction-detail" class="button-detail btn btn-info"  data-toggle="modal" data-target="#violationModal">Chi tiết</button>
+                                        <button id="sanction-detail" class="button-detail btn btn-info"
+                                            data-toggle="modal" data-target="#violationModal">Chi tiết</button>
                                     </div>
                                 </div>
                             </div>
-                        
+
                             <!--Show stolen detail-->
-                            <div class="modal fade" id="violationModal" tabindex="-1" role="dialog" aria-labelledby="violationModalLabel"
-                                aria-hidden="true">
+                            <div class="modal fade" id="violationModal" tabindex="-1" role="dialog"
+                                aria-labelledby="violationModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document" style="max-width: 1200px">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -277,12 +312,13 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="violation-table-body">
-                                                    
+
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -364,7 +400,8 @@
                                             <p>Số tem: <span id="stamp-number" class="bold"></span></p>
                                         </div>
                                         <div class="col-12">
-                                            <p style="font-size: 18px; color: tomato; text-align: center; margin: 0;"><strong id="registry-status"></strong></p>
+                                            <p style="font-size: 18px; color: tomato; text-align: center; margin: 0;">
+                                                <strong id="registry-status"></strong></p>
                                         </div>
                                     </div>
                                 </div>
@@ -372,7 +409,36 @@
                             <!--Button report wrong detection and button confirm-->
 
                             <div id="confirm-area" class="row infor-block">
-                                <button type="button" class="btn btn-danger" style="margin-right: 15px">Chỉnh sửa thông tin nhận diện</button>
+                                <button type="button" id="correct-button" class="btn btn-danger" style="margin-right: 15px">Chỉnh sửa thông tin nhận diện</button>
+                            </div>
+
+                            <button type="button" id="hide-button" style="display: none" data-toggle="modal"
+                                data-target="#EditModal">hide button</button>
+                            <!-- Modal -->
+
+                            <div class="modal fade" id="EditModal" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thông tin</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="img-correct" class="col-12">
+                                                <img src="" height="100%" width="100%">
+                                            </div> 
+                                            <div class="col-12" id="correct-plate"> 
+                                                <input type="text" id="new-number" class="form-control mr-sm-2" type="search" placeholder="Nhập lại biển số đúng"> 
+                                            </div>
+                                            <div class="col-12" id="confirm-button" style="margin-top: 15px; display: flex; flex-direction: column; align-items: center;">
+                                                <button type="button" class="btn btn-primary">Xác nhận</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -381,10 +447,10 @@
         </div>
     </div>
     <!-- #endregion -->
-    
+
 </body>
 
-        
+
 </html>
 
 
@@ -396,8 +462,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- import bootstrap -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 
 <!--import font awesome-->
 <script src="https://kit.fontawesome.com/a0df4ac8c5.js"></script>

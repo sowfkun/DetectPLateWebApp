@@ -348,6 +348,18 @@ html, body {
   }
 }
 
+/* Correct plate number */
+
+#correct-plate {
+  margin-top: 15px;
+}
+
+#img-correct img {
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+  position: relative;
+  box-shadow: 0px 4px 5px rgb(124, 124, 124);
+}
 /*#endregion */
 
 
