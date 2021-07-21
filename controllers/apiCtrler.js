@@ -128,7 +128,6 @@ async function CheckPlateAndCreateDocument(plate, imgUrl, req, res) {
             return;
         }
     }
-
     // Check if plate exist in system or not
     isRegistered = await Registry.find({ "plate_number": plate });
 
